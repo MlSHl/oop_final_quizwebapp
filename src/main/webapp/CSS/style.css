@@ -1,0 +1,148 @@
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styles */
+body {
+    font-family: "Roboto Thin", sans-serif;
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Main styles */
+main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 80%;
+    max-width: 800px;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-style: solid;
+    border-width: thin;
+
+    margin: 20px;
+    min-height: 180px;
+}
+
+/* Header styles */
+header {
+    text-align: center;
+    margin:20px;
+}
+
+h2 {
+    font-family: "Roboto Thin", sans-serif;
+}
+
+/* Form styles */
+form {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+}
+
+label {
+    font-family: "Roboto Thin", sans-serif;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-color: #333333;
+    border-width: thin;
+    border-style: solid;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+input[type="submit"] {
+    background-color: #fff;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+}
+
+input[type="submit"]:hover {
+    color: #fff;
+    background-color: #333;
+}
+
+input[type="submit"]:focus,
+input[type="submit"]:active {
+    outline: none;
+    background-color: #fff;
+    color: #333;
+}
+
+
+/* Navigation styles */
+nav {
+    margin-left: 20px;
+    background-color: #fff;
+    padding: 10px;
+    color: #333333;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-style: solid;
+    border-width: thin;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px; /* Adjust spacing between items */
+
+}
+
+a {
+    display: block; /* Ensures each link takes full width */
+    text-decoration: none;
+
+    background-color: #fff;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
+
+}
+
+a:hover {
+    color: #ffffff;
+    background-color: #333333;
+
+}
+

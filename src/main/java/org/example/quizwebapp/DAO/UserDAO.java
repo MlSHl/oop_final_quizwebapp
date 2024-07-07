@@ -1,6 +1,5 @@
 package org.example.quizwebapp.DAO;
 
-
 import org.example.quizwebapp.Model.User;
 
 import java.sql.Connection;
@@ -30,6 +29,7 @@ public class UserDAO {
         ConnectionPool.releaseConnection(connection);
 
         return true;
+
     }
 
 

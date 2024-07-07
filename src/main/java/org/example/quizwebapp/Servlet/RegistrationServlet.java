@@ -19,6 +19,8 @@ public class RegistrationServlet extends HttpServlet {
         userDAO = new UserDAO();
     }
 
+    // GET, POST, PUT, DELETE
+    //
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String username = request.getParameter("username");

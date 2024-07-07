@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <link href="CSS/style.css" rel="stylesheet">
     <title>User Registration</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700italic,400italic,700" rel="stylesheet">
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="#">Quizes</a></li>
-            <li><a href="#">Profile</a> </li>
+            <li><a href="#">weroebi</a></li>
+            <li><a href="#">profile</a> </li>
             <li><a href="#">Leaderboard</a> </li>
         </ul>
     </nav>

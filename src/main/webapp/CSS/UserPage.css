@@ -1,0 +1,37 @@
+.friends{
+    text-align: left;
+
+}
+ul {
+    list-style-type: none;
+}
+nav{
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    /*padding: 10px;*/
+}
+
+.nav-li{
+    display: inline;
+}
+
+
+nav {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
+}
+.saxeli{
+    text-align: center;
+}
+
+.didiragaca {
+    display: grid;
+    column-gap: 30px;
+    grid-template-columns: auto auto;
+}
+.empasi{
+    text-align: center;
+}

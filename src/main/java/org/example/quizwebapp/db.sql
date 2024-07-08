@@ -18,6 +18,8 @@ CREATE TABLE users(
 
 CREATE TABLE quizes(
 	quiz_id		int AUTO_INCREMENT PRIMARY KEY,
+    quiz_name   varchar(255),
+    quiz_desc   varchar(255),
 	creator_id 	int,
 	-- Constraints
 	FOREIGN KEY (creator_id) REFERENCES users(user_id)

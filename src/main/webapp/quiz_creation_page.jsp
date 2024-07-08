@@ -68,6 +68,14 @@
 <body>
 <h1>Create Quiz</h1>
 <form id="quizForm" action="CreateQuizServlet" method="post">
+    <div>
+        <label for="quizName">Quiz Name: </label>
+        <input type="text" id="quizName" name="quizName">
+    </div>
+    <div>
+        <label for="quizDescription">Quiz Description: </label>
+        <textarea id="quizDescription" name="quizDescription"></textarea>
+    </div>
     <button type="button" onclick="addQuestion()">Add Question</button>
     <button type="submit">Submit Quiz</button>
 </form>

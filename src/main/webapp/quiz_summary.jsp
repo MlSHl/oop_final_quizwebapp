@@ -9,9 +9,12 @@
 <body>
 <h1>Quiz Summary</h1>
 
+<h2>${quizName}</h2>
+<p>${quizDescription}</p>
+
 <c:if test="${not empty quiz}">
     <c:forEach var="question" items="${quiz}">
-        <h2>${question.text}</h2>
+        <h3>${question.text}</h3>
         <ul>
             <c:forEach var="answer" items="${question.answers}" varStatus="status">
                 <li>

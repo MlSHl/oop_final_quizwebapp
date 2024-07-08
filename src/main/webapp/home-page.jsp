@@ -10,7 +10,7 @@
 <body>
 <nav>
     <ul class="nav-ul">
-        <li class="nav-li"><img class="logo" src="weroebi_logo.jpg" alt="logo.jpg"><a href="home-page.jsp"></a></li>
+        <li class="nav-li"><img class="logo" src="image/weroebi_logo.jpg" alt="logo.jpg"><a href="home-page.jsp"></a></li>
         <li class="nav-li"><a href="UserPage.jsp">profile</a></li>
         <li class="nav-li"><a href="#">create quiz</a></li>
     </ul>

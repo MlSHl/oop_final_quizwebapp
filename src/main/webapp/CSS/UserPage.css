@@ -49,7 +49,7 @@ nav {
 }
 
 .nav-li a:hover {
-    color: #d8bfd8;
+    color: #E7F0F6;
 }
 
 .nav-icon {
@@ -168,7 +168,7 @@ fieldset {
 
 /* Colorful elements */
 .friends, .saxeli, .empasi {
-    border-color: #d8bfd8; /* Light purple border */
+    border-color: #E7F0F6; /* Light purple border */
 }
 
 legend {

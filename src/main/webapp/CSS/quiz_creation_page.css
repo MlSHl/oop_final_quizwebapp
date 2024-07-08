@@ -1,15 +1,21 @@
-/* General styles */
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f0f2f5;
+/* Reset some basic styles */
+body, ul, h2, h3, button, input {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
+/* Body styling */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Navigation bar styling */
 nav {
     display: flex;
     justify-content: space-between;
@@ -57,96 +63,169 @@ nav {
     font-weight: bold;
 }
 
-
-h1 {
-    text-align: center;
-    color: #4A90E2;
-    margin-bottom: 20px;
-}
-
-/* Form container */
-#quizForm {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    box-sizing: border-box;
-}
-
-/* Button styles */
-button {
-    background-color: #4A90E2;
-    color: white;
-    padding: 10px 15px;
-    margin: 10px 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #357ABD;
-}
-
-/* Question styles */
-.question {
-    margin-bottom: 20px;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background: #fafafa;
-}
-
-.question label {
-    font-weight: bold;
-    color: #333333;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.question input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-/* Answer styles */
-.answers {
-    margin-top: 10px;
-}
-
-.answer {
+/* Search bar styling */
+.search {
     display: flex;
     align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    max-width: 400px;
+}
+
+.search-field {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.search-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    color: #1b2e3c; /* Purple color */
+}
+
+/* Main section styling */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Fieldset styling */
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    /*padding: 10px;*/
+    background-color: #E7F0F6; /* Lavender background color */
+}
+
+/* Friends section styling */
+.friends ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.friends li {
+    padding: 5px 0;
+}
+
+/* Main box styling */
+.saxeli h2 {
     margin-bottom: 10px;
 }
 
-.answer label {
-    margin-right: 10px;
-    color: #555555;
+.saxeli button {
+    display: block; /* Ensures each link takes full width */
+    text-decoration: none;
+
+    background-color: #1b2e3c;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
 }
 
-.answer input[type="text"] {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    margin-right: 10px;
-    font-size: 14px;
+.saxeli button:hover {
+    color: #333333;
+    background-color: #ffffff;
+
+}
+.friend {
+    padding: 10px 20px;
+    border: none;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.friend button:hover{
+    color: #333333;
+    background-color: #ffffff; /* Darker purple */
+}
+/* Achievements section styling */
+.empasi h3 {
+    margin: 5px 0;
+    padding: 5px 0;
 }
 
-.answer input[type="checkbox"] {
-    margin-right: 5px;
+/* Colorful elements */
+.friends, .saxeli, .empasi {
+    border-color: #d8bfd8; /* Light purple border */
 }
 
-.answer label:last-of-type {
-    margin-right: 0;
+legend {
+    color: #1b2e3c; /* Purple color */
+    font-weight: bold;
 }
+
+/* Create Quiz button styling */
+.create-quiz-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.create-quiz-btn:hover {
+    background-color: #1b2e3c; /* Darker purple */
+}
+.left-column{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.logo {
+    width:128px;
+    height:128px;
+    display: inline;
+}
+
+.friends button {
+    display: block; /* Ensures each link takes full width */
+    text-decoration: none;
+
+    background-color: #1b2e3c;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
+}
+
+.friends button:hover {
+    color: #333333;
+    background-color: #ffffff;
+
+}
+
+

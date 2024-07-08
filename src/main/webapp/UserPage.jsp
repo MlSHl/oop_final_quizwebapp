@@ -1,66 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <link href="CSS/UserPage.css" rel="stylesheet">
     <title>User Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
 <main>
     <nav>
         <ul class="nav-ul">
-            <li class="nav-li"><a href="#">weroebi</a> </li> <!-- weroebis magvirad logo pirdapir sheidzleba -->
-            <li class="nav-li"><a href="#">profile</a></li>
-            <li class="nav-li"><a href="#">create quiz</a></li>
+            <li class="nav-li"><a href="#"><img class="logo" src="image/logo.jpg"><a href="#"></a></li>
+            <li class="nav-li"><a href="#"><i class="fas fa-user nav-icon"></i>profile</a></li>
+            <li class="nav-li"><a href="#"><i class="fas fa-pencil-alt nav-icon"></i>create quiz</a></li>
         </ul>
-        <section class = "search">
-            <input type = "text" placeholder="quizzes, users ..." class = "search-field">
-            <button type = "button" class = "search-button">search</button>
+
+        <section class="search">
+            <input type="text" placeholder="quizzes, users ..." class="search-field">
+            <button type="button" class="search-button"><i class="fas fa-search"></i></button>
         </section>
     </nav>
-<section class="didiragaca">
-<section>
-    <fieldset class="friends">
-        <legend><em>Friends</em></legend>
-    <ul>
-        <li>Megobari1</li>
-        <li>Megobari2</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-        <li>Megobari3</li>
-
-    </ul>
-    </fieldset>
-</section>
-
-    <section class="saxelebiachiev">
-    <section>
-        <fieldset class="saxeli">
-            <legend><em>Main Box</em></legend>
-    <h2>Gurama</h2>
-    <button type="Send Friend Request">Send Request</button>
-        </fieldset>
-    </section>
-    <section>
-        <fieldset class="empasi">
-
-            <legend><em>achievement</em></legend>
-            <h3>archoni</h3>
-            <h3>imortal</h3>
-            <h3>crusader</h3>
-        </fieldset>
-    </section>
-    </section>
-
-</section>
 
 
+    <div class="left-column">
+        <section class="saxeli">
+            <fieldset>
+                <legend><em>Main Box</em></legend>
+                <h2>Gurama</h2>
+                <button type="button">Send Request</button>
+            </fieldset>
+
+            <fieldset>
+                <legend><em>Achievements</em></legend>
+                <h3>archoni</h3>
+                <h3>imortal</h3>
+                <h3>crusader</h3>
+            </fieldset>
+        </section>
+
+
+        <section class="friends">
+            <fieldset>
+                <legend><em>Friends</em></legend>
+                <ul>
+                    <li><button type="button" class="friend">Megobari1</button></li>
+                    <li><button type="button" class="friend">Megobari1</button></li>
+                    <li><button type="button" class="friend">Megobari1</button></li>
+
+                </ul>
+            </fieldset>
+        </section>
+
+    </div>
 </main>
+
 </body>
 </html>

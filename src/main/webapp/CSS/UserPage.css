@@ -1,37 +1,198 @@
-.friends{
-    text-align: left;
+/* Reset some basic styles */
+body, ul, h2, h3, button, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
+/* Body styling */
+body {
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 20px;
 }
-ul {
+
+/* Navigation bar styling */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.nav-ul {
     list-style-type: none;
+    display: flex;
+    align-items: center;
 }
-nav{
-    border-color: black;
-    border-style: solid;
-    border-width: thin;
+
+.nav-li {
+    margin: 0 15px;
+}
+
+.nav-li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.nav-li a:hover {
+    color: #d8bfd8;
+}
+
+.nav-icon {
+    margin-right: 8px;
+}
+
+/* "weroebi" styling */
+.nav-li:first-child a {
+    font-family: 'Cursive', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Search bar styling */
+.search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    max-width: 400px;
+}
+
+.search-field {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.search-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    color: #1b2e3c; /* Purple color */
+}
+
+/* Main section styling */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Fieldset styling */
+fieldset {
+    border: 1px solid #ddd;
     border-radius: 5px;
     /*padding: 10px;*/
+    background-color: #E7F0F6; /* Lavender background color */
 }
 
-.nav-li{
+/* Friends section styling */
+.friends ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.friends li {
+    padding: 5px 0;
+}
+
+/* Main box styling */
+.saxeli h2 {
+    margin-bottom: 10px;
+    }
+
+.saxeli button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.saxeli button:hover {
+    background-color: #1b2e3c; /* Darker purple */
+}
+.friend {
+    padding: 10px 20px;
+    border: none;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.friend button:hover{
+    background-color: #1b2e3c; /* Darker purple */
+}
+/* Achievements section styling */
+.empasi h3 {
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+/* Colorful elements */
+.friends, .saxeli, .empasi {
+    border-color: #d8bfd8; /* Light purple border */
+}
+
+legend {
+    color: #1b2e3c; /* Purple color */
+    font-weight: bold;
+}
+
+/* Create Quiz button styling */
+.create-quiz-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #1b2e3c; /* Purple color */
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.create-quiz-btn:hover {
+    background-color: #1b2e3c; /* Darker purple */
+}
+.left-column{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.logo {
+    width:128px;
+    height:128px;
     display: inline;
 }
 
 
-nav {
-    display: grid;
-    grid-template-columns: auto auto;
-    text-align: center;
-}
-.saxeli{
-    text-align: center;
-}
 
-.didiragaca {
-    display: grid;
-    column-gap: 30px;
-    grid-template-columns: auto auto;
-}
-.empasi{
-    text-align: center;
-}

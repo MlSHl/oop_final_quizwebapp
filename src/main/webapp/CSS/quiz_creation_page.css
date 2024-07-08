@@ -107,8 +107,6 @@ main {
 fieldset {
     border: 1px solid #ddd;
     border-radius: 5px;
-    /*padding: 10px;*/
-    background-color: #E7F0F6; /* Lavender background color */
 }
 
 /* Friends section styling */
@@ -225,7 +223,35 @@ legend {
 .friends button:hover {
     color: #333333;
     background-color: #ffffff;
+}
 
+.q-desc {
+   background-color: #1b2e3c;
+    text-align: center;
+}
+
+.right-side {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: right;
+    color: white;
+}
+
+.q-name {
+    width: 35%;
+    height: 25px;
+}
+
+textarea {
+    margin-top: 10px;
+    width: 50%;
+    height: 50px;
+    font-size: 15px;
+}
+
+
+.q-desc-label, textarea, .q-name-label, .q-name {
+    display: block;
 }
 
 

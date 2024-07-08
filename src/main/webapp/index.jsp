@@ -10,7 +10,7 @@
     <nav>
         <ul>
             <li><a href="home-page.jsp">weroebi</a></li>
-            <li><a href="#">profile</a> </li>
+            <li><a href="quiz_creation_page.jsp">profile</a> </li>
             <li><a href="#">Leaderboard</a> </li>
         </ul>
     </nav>

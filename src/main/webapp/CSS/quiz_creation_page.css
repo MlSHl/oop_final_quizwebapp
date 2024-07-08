@@ -49,7 +49,7 @@ nav {
 }
 
 .nav-li a:hover {
-    color: #E7F0F6;
+    color: #d8bfd8;
 }
 
 .nav-icon {
@@ -124,7 +124,7 @@ fieldset {
 /* Main box styling */
 .saxeli h2 {
     margin-bottom: 10px;
-    }
+}
 
 .saxeli button {
     display: block; /* Ensures each link takes full width */
@@ -168,7 +168,7 @@ fieldset {
 
 /* Colorful elements */
 .friends, .saxeli, .empasi {
-    border-color: #E7F0F6; /* Light purple border */
+    border-color: #d8bfd8; /* Light purple border */
 }
 
 legend {

@@ -72,7 +72,12 @@ CREATE TABLE user_achievements(
 
 -- TODO: ADD FRIENDS
 
-CREATE TABLE friends(
-	user_id 		int,
-	friend_id		int
+CREATE TABLE friend_requests(
+	sender_id 		int,
+	reciever_id		int
 );
+
+CREATE TABLE friends(
+	user_id			int,
+	friend_id		int
+)

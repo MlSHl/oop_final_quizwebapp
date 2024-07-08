@@ -1,0 +1,90 @@
+* {
+    font-family: "Roboto Thin", sans-serif;
+}
+
+nav{
+    border-color: black;
+    border-style: solid;
+    border-width: thin;
+    border-radius: 5px;
+    /*padding: 10px;*/
+}
+
+.nav-li{
+    display: inline;
+}
+
+nav {
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
+}
+
+.search-button, .search-field {
+    font-size: larger;
+}
+
+.search{
+    margin-top: 15px;
+}
+
+body {
+
+}
+
+ul {
+    list-style-type: none;
+}
+
+.section-1 {
+    display: grid;
+    column-gap: 30px;
+    grid-template-columns: auto auto;
+}
+
+li {
+    margin: 25px 0;
+}
+
+legend {
+    font-size: 1.5em;
+}
+
+fieldset {
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
+}
+
+p {
+    font-size: 23px;
+}
+
+.teqstianebi a, p{
+    display: inline;
+}
+
+a {
+    text-decoration: none;
+    background-color: #fff;
+    padding: 5px;
+    color: #333;
+    font-size: 1.5em;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
+}
+
+
+a:hover {
+    color: #ffffff;
+    background-color: #333333;
+}
+

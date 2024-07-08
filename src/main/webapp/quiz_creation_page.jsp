@@ -1,64 +1,64 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Create Quiz</title>
     <script>
-        let questionCount = 0;
+        var questionCount = 0;
 
         function addQuestion() {
-            questionCount++;
-            const questionDiv = document.createElement("div");
+            var questionDiv = document.createElement("div");
             questionDiv.className = "question";
-            questionDiv.dataset.questionId = questionCount;
+            questionDiv.setAttribute("data-question-index", questionCount);
 
-            const questionLabel = document.createElement("label");
+            var questionLabel = document.createElement("label");
             questionLabel.innerHTML = "Question: ";
             questionDiv.appendChild(questionLabel);
 
-            const questionInput = document.createElement("input");
+            var questionInput = document.createElement("input");
             questionInput.type = "text";
-            questionInput.name = `questions_${questionCount}`;
+            questionInput.name = "questions";
             questionDiv.appendChild(questionInput);
 
-            const addAnswerButton = document.createElement("button");
+            var addAnswerButton = document.createElement("button");
             addAnswerButton.type = "button";
             addAnswerButton.innerHTML = "Add Answer";
             addAnswerButton.onclick = function() { addAnswer(questionDiv); };
             questionDiv.appendChild(addAnswerButton);
 
-            const answersDiv = document.createElement("div");
+            var answersDiv = document.createElement("div");
             answersDiv.className = "answers";
             questionDiv.appendChild(answersDiv);
 
             document.getElementById("quizForm").appendChild(questionDiv);
+
+            questionCount++;
         }
 
         function addAnswer(questionDiv) {
-            const questionId = questionDiv.dataset.questionId;
-            const answersDiv = questionDiv.querySelector(".answers");
+            var questionIndex = questionDiv.getAttribute("data-question-index");
+            var answersDiv = questionDiv.getElementsByClassName("answers")[0];
+            var answerCount = answersDiv.getElementsByClassName("answer").length;
 
-            const answerDiv = document.createElement("div");
+            var answerDiv = document.createElement("div");
             answerDiv.className = "answer";
 
-            const answerLabel = document.createElement("label");
+            var answerLabel = document.createElement("label");
             answerLabel.innerHTML = "Answer: ";
             answerDiv.appendChild(answerLabel);
 
-            const answerInput = document.createElement("input");
+            var answerInput = document.createElement("input");
             answerInput.type = "text";
-            answerInput.name = `answers_${questionId}`;
+            answerInput.name = "answers[" + questionIndex + "]";
             answerDiv.appendChild(answerInput);
 
-            const correctCheckbox = document.createElement("input");
+            var correctCheckbox = document.createElement("input");
             correctCheckbox.type = "checkbox";
-            correctCheckbox.name = `correctAnswers_${questionId}`;
+            correctCheckbox.name = "correct[" + questionIndex + "][" + answerCount + "]";
             answerDiv.appendChild(correctCheckbox);
 
-            const correctLabel = document.createElement("label");
-            correctLabel.innerHTML = " Correct";
+            var correctLabel = document.createElement("label");
+            correctLabel.innerHTML = "Correct";
             answerDiv.appendChild(correctLabel);
 
             answersDiv.appendChild(answerDiv);

@@ -14,7 +14,9 @@
         <li class="nav-li"><a href="#">create quiz</a></li>
     </ul>
     <section class = "search">
-        <input type = "text" placeholder="quizzes, users ..." class = "search-field">
+        <label>
+            <input type = "text" placeholder="quizzes, users ..." class = "search-field">
+        </label>
         <button type = "button" class = "search-button">search</button>
     </section>
 </nav>

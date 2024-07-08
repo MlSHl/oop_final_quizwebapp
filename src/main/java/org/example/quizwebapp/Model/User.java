@@ -21,7 +21,7 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object other) {
+    public boolean equals(Object other) { //TODO possibly problematic
         if (this == other) return true;
         if (!(other instanceof User)) return false;
 

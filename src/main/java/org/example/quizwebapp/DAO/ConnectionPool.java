@@ -45,7 +45,7 @@ public class ConnectionPool {
     /**
      * Removes the last connection and returns it.
      */
-    public static Connection getConnection(){
+    public  Connection getConnection(){
         Connection connection = connectionPool.get(connectionPool.size() - 1);
         connectionPool.remove(connectionPool.size() - 1);
         return connection;

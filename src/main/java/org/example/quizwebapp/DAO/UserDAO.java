@@ -26,7 +26,7 @@ public class UserDAO {
             throw new UserAlreadyExistsException();
         }
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         String sql = "INSERT INTO quiz_db.users (user_name, password)VALUES(?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, user.getUsername());
@@ -46,7 +46,7 @@ public class UserDAO {
     public User getUser(User user) throws SQLException, ClassNotFoundException, NoSuchAlgorithmException, UserAlreadyExistsException, UserNotFoundException {
         String sql = "SELECT * FROM quiz_db.users WHERE user_name = ? AND password = ?";
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         try{
             statement.setString(1, user.getUsername());
@@ -72,7 +72,7 @@ public class UserDAO {
     public User getUserByUsername(String username) throws SQLException, ClassNotFoundException, UserNotFoundException {
         String sql = "SELECT * FROM quiz_db.users WHERE user_name = ?";
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
 
         try {
@@ -109,7 +109,7 @@ public class UserDAO {
                 "WHERE u.user_name = ?";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
 
         statement.setString(1, user.getUsername());
@@ -144,7 +144,7 @@ public class UserDAO {
         }
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
         try {
@@ -197,7 +197,7 @@ public class UserDAO {
     public List<User> getFriendList(String username) throws UserNotFoundException, SQLException, ClassNotFoundException {
         List<User> friendList = new ArrayList<>();
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
 
@@ -244,7 +244,7 @@ public class UserDAO {
 
     public int getUserIdByUsername(String username) throws SQLException, ClassNotFoundException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
         int userId = -1;
 

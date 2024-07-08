@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class UserValidation {
     public static boolean CheckUnique(String username) throws SQLException, ClassNotFoundException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = ConnectionPool.getConnection();
+        Connection connection = connectionPool.getConnection();
 
         String sql = "SELECT COUNT(*) FROM users WHERE user_name = ?";
         PreparedStatement statement = connection.prepareStatement(sql);

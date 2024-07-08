@@ -23,57 +23,65 @@
         <fieldset id="popular-quizzes">
             <legend><em>Popular Quizzes</em></legend>
             <ul>
-                <li class = "aa"><a href="#">qvizis saxeli linkad</a></li>
-                <li><a href="#">Quiz 2</a></li>
-                <li><a href="#">Quiz 3</a></li>
+                <li><a class = "grdzeli" href="#">qvizis saxeli linkad</a></li>
+                <li><a class = "grdzeli" href="#">Quiz 2</a></li>
+                <li><a class = "grdzeli" href="#">Quiz 3</a></li>
             </ul>
         </fieldset>
 
         <fieldset id="recent-quizzes">
-            <legend>Recently Created Quizzes</legend>
+            <legend><em>Recently Created Quizzes</em></legend>
             <ul>
-                <li><a href="#">Quiz A</a></li>
-                <li><a href="#">Quiz B</a></li>
-                <li><a href="#">Quiz C</a></li>
+                <li><a class = "grdzeli" href="#">Quiz A</a></li>
+                <li><a class = "grdzeli" href="#">Quiz B</a></li>
+                <li><a class = "grdzeli" href="#">Quiz C</a></li>
             </ul>
         </fieldset>
 
         <fieldset id="user-activities">
-            <legend>Your Recent Activities</legend>
+            <legend><em>Your Recent Activities</em></legend>
             <ul>
-                <li>Took <a href="#">Quiz X</a></li>
-                <li>Took <a href="#">Quiz Y</a></li>
+                <li>
+                    <a class = "grdzeli" href="#">Quiz X</a>
+                </li>
+                <li>
+                    <a class = "grdzeli" href="#">Quiz Y</a>
+                </li>
             </ul>
         </fieldset>
 
         <fieldset id="user-created-quizzes">
-            <legend>Your Created Quizzes</legend>
+            <legend><em>Your Created Quizzes</em></legend>
             <ul>
-                <li><a href="#">Quiz Alpha</a></li>
-                <li><a href="#">Quiz Beta</a></li>
+                <li><a class = "grdzeli" href="#">Quiz Alpha</a></li>
+                <li><a class = "grdzeli" href="#">Quiz Beta</a></li>
             </ul>
         </fieldset>
 
         <fieldset id="achievements">
-            <legend>Your Achievements</legend>
+            <legend><em>Your Achievements</em></legend>
             <ul>
-                <li>Achievement 1</li>
-                <li>Achievement 2</li>
+                <li class = "ach-txt">
+                    <p>Achievement 1</p>
+                </li>
+                <li class = "ach-txt">
+                   <p>Achievement 2</p>
+                </li>
             </ul>
         </fieldset>
 
         <fieldset id="friends-activities">
-            <legend>Friends' Recent Activities</legend>
+            <legend><em>Friends' Recent Activities</em></legend>
             <ul>
                 <li class = "teqstiani">
-                    <a href="#">Friend1</a>
-                    <p>took </p>
-                    <a href="#">Quiz 3</a>
+                    <a class = "grdzeli" href="#">Friend1</a>
+                    <p> took </p>
+                    <a class = "grdzeli" href="#">Quiz 3</a>
                 </li>
-                <li class = "teqstianebi">
-                    <a href="#">Friend2</a>
+                <li class = "teqstiani">
+                    <a class = "grdzeli" href="#">Friend2</a>
                     <p>earned</p>
-                    <a href="#">Achievement X</a>
+                    <a class = "grdzeli" href="#">Achievement X</a>
                 </li>
             </ul>
         </fieldset>

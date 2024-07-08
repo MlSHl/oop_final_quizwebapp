@@ -8,16 +8,13 @@ nav{
     border-width: thin;
     border-radius: 5px;
     /*padding: 10px;*/
+    display: grid;
+    grid-template-columns: auto auto;
+    text-align: center;
 }
 
 .nav-li{
     display: inline;
-}
-
-nav {
-    display: grid;
-    grid-template-columns: auto auto;
-    text-align: center;
 }
 
 .search-button, .search-field {
@@ -63,8 +60,9 @@ p {
     font-size: 23px;
 }
 
-.teqstianebi a, p{
-    display: inline;
+.teqstiani a, p{
+    display: inline-block;
+    width: 31%;
 }
 
 a {
@@ -80,11 +78,22 @@ a {
     border-color: #333;
     border-style: solid;
     border-width: thin;
+
 }
 
+.grdzeli {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
 
 a:hover {
     color: #ffffff;
     background-color: #333333;
+}
+
+.ach-txt {
+    font-size: 23px;
 }
 

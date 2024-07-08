@@ -9,7 +9,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href="#">weroebi</a></li>
+            <li><a href="home-page.jsp">weroebi</a></li>
             <li><a href="#">profile</a> </li>
             <li><a href="#">Leaderboard</a> </li>
         </ul>

@@ -127,16 +127,26 @@ fieldset {
     }
 
 .saxeli button {
+    display: block; /* Ensures each link takes full width */
+    text-decoration: none;
+
+    background-color: #1b2e3c;
+    color: #ffffff;
     padding: 10px 20px;
-    border: none;
-    background-color: #1b2e3c; /* Purple color */
-    color: #fff;
-    border-radius: 5px;
+    font-size: 1em;
     cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
 }
 
 .saxeli button:hover {
-    background-color: #1b2e3c; /* Darker purple */
+    color: #333333;
+    background-color: #ffffff;
+
 }
 .friend {
     padding: 10px 20px;
@@ -147,7 +157,8 @@ fieldset {
     cursor: pointer;
 }
 .friend button:hover{
-    background-color: #1b2e3c; /* Darker purple */
+    color: #333333;
+    background-color: #ffffff; /* Darker purple */
 }
 /* Achievements section styling */
 .empasi h3 {
@@ -194,5 +205,27 @@ legend {
     display: inline;
 }
 
+.friends button {
+    display: block; /* Ensures each link takes full width */
+    text-decoration: none;
+
+    background-color: #1b2e3c;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 7px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    border-color: #333;
+    border-style: solid;
+    border-width: thin;
+}
+
+.friends button:hover {
+    color: #333333;
+    background-color: #ffffff;
+
+}
 
 

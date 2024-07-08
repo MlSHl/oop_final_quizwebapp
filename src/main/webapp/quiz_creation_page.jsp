@@ -2,7 +2,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link href="CSS/quiz-creation-page.css" rel="stylesheet">
     <title>Create Quiz</title>
+
     <script>
         var questionCount = 0;
 
@@ -66,10 +68,23 @@
     </script>
 </head>
 <body>
+<nav>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="#"><img class="logo" src="image/logo.jpg"><a href="#"></a></li>
+        <li class="nav-li"><a href="#"><i class="fas fa-user nav-icon"></i>profile</a></li>
+        <li class="nav-li"><a href="#"><i class="fas fa-pencil-alt nav-icon"></i>create quiz</a></li>
+    </ul>
+
+    <section class="search">
+        <input type="text" placeholder="quizzes, users ..." class="search-field">
+        <button type="button" class="search-button"><i class="fas fa-search"></i></button>
+    </section>
+</nav>
 <h1>Create Quiz</h1>
 <form id="quizForm" action="CreateQuizServlet" method="post">
     <button type="button" onclick="addQuestion()">Add Question</button>
     <button type="submit">Submit Quiz</button>
 </form>
+
 </body>
 </html>

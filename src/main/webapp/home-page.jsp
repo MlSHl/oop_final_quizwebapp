@@ -9,8 +9,8 @@
 <body>
 <nav>
     <ul class="nav-ul">
-        <li class="nav-li"><a href="#"><img class="logo" src="weroebi_logo.jpg"><a href="#"></a></li>
-        <li class="nav-li"><a href="#">profile</a></li>
+        <li class="nav-li"><a href="home-page.jsp"><img class="logo" src="weroebi_logo.jpg"><a href="home-page.jsp"></a></li>
+        <li class="nav-li"><a href="UserPage.jsp">profile</a></li>
         <li class="nav-li"><a href="#">create quiz</a></li>
     </ul>
     <section class="search">

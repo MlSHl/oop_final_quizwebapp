@@ -85,4 +85,14 @@ CREATE TABLE friend_requests(
 CREATE TABLE friends(
 	user_name			varchar(25),
 	friend_name		varchar(25)
-)
+);
+
+
+INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
+VALUES ('Immortal', 'Unbeaten', 'image/Immortal.png');
+INSERT INTO user_achievements (user_name, achievement_id)
+VALUES ('user1', 1);
+INSERT INTO friends (user_name, friend_name)
+VALUES ('user2', 'user1');
+INSERT INTO friends (user_name, friend_name)
+Values ('user1', 'user2');

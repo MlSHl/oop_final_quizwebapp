@@ -1,4 +1,10 @@
 <%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
+<%@ page import="org.example.quizwebapp.DAO.UserDAO" %>
+<%@ page import="org.example.quizwebapp.Model.Achievement" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.example.quizwebapp.CustomExceptions.UserNotFoundException" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="org.example.quizwebapp.Model.User" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,9 +44,28 @@
 
             <fieldset>
                 <legend><em>Achievements</em></legend>
-                <h3>archoni</h3>
-                <h3>imortal</h3>
-                <h3>crusader</h3>
+                <%
+                    UserDAO dao = new UserDAO();
+                    List<Achievement> achievements = null;
+                    try {
+                        achievements = dao.getAchievements(userName);
+                    } catch (UserNotFoundException | SQLException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    if (achievements.isEmpty()) {
+                %>
+                <p>User doesn't have any achievements.</p>
+                <%
+                } else {
+                    for (Achievement achievement : achievements) {
+                %>
+                <h3><%= achievement.getName() %></h3>
+                <p><%= achievement.getDescription() %></p>
+                <img src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
+                <%
+                        }
+                    }
+                %>
             </fieldset>
         </section>
 
@@ -49,13 +74,34 @@
             <fieldset>
                 <legend><em>Friends</em></legend>
                 <ul>
-                    <li><button type="button" class="friend">Megobari1</button></li>
-                    <li><button type="button" class="friend">Megobari1</button></li>
-                    <li><button type="button" class="friend">Megobari1</button></li>
+                    <%
+                        List<User> friends = null;
+                        try {
+                            friends = dao.getFriendList(userName);
+                        } catch (SQLException | ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
 
+                        if (friends.isEmpty()) {
+                    %>
+                    <li>User doesn't have friends</li>
+                    <%
+                    } else {
+                        for (User friend : friends) {
+                    %>
+                    <li>
+                        <a href="Profile.jsp?profileUser=<%= friend.getUsername() %>">
+                            <%= friend.getUsername() %>
+                        </a>
+                    </li>
+                    <%
+                            }
+                        }
+                    %>
                 </ul>
             </fieldset>
         </section>
+
 
     </div>
 </main>

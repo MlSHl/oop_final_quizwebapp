@@ -52,11 +52,6 @@
             <%
                 }
             %>
-            <%--            <ul>--%>
-<%--                <li><a class="grdzeli" href="#">qvizis saxeli linkad</a></li>--%>
-<%--                <li><a class="grdzeli" href="#">Quiz 2</a></li>--%>
-<%--                <li><a class="grdzeli" href="#">Quiz 3</a></li>--%>
-<%--            </ul>--%>
         </fieldset>
 
         <fieldset id="recent-quizzes">
@@ -80,12 +75,6 @@
             <%
                 }
             %>
-
-<%--//            <ul>--%>
-<%--//                <li><a class="grdzeli" href="#">Quiz A</a></li>--%>
-<%--//                <li><a class="grdzeli" href="#">Quiz B</a></li>--%>
-<%--//                <li><a class="grdzeli" href="#">Quiz C</a></li>--%>
-<%--//            </ul>--%>
         </fieldset>
 
         <fieldset id="user-activities">
@@ -99,17 +88,42 @@
         <fieldset id="user-created-quizzes">
             <legend><em>Your Created Quizzes</em></legend>
             <ul>
-                <li><a class="grdzeli" href="#">Quiz Alpha</a></li>
-                <li><a class="grdzeli" href="#">Quiz Beta</a></li>
+                <%
+                    String token = (String) request.getSession().getAttribute("token");
+                    String userName = JwtUtil.extractUsername(token);
+                    UserDAO userDAO = new UserDAO();
+                    List<Quiz> userCreatedQuizzes = null;
+                    try {
+                        userCreatedQuizzes = userDAO.getQuizzes(userName);
+                    } catch (SQLException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    if (userCreatedQuizzes.isEmpty()) {
+                %>
+                    <p>You haven't created any quizzes yet.</p>
+                <%
+                } else {
+                    for (Quiz quiz : userCreatedQuizzes) {
+                        int quizId = quiz.getId();
+                        String quizName = quiz.getTitle();
+                %>
+                    <form action="takeQuiz.jsp" method="get">
+                        <input type="hidden" name="quizId" value="<%= quizId %>">
+                        <button type="submit" class="grdzeli"><%= quizName %></button>
+                    </form>
+                <%
+                        }
+                    }
+                %>
             </ul>
         </fieldset>
+
 
         <fieldset id="achievements">
             <legend><em>Your Achievements</em></legend>
             <ul>
                 <%
-                    String token = (String) request.getSession().getAttribute("token");
-                    String userName = JwtUtil.extractUsername(token);
                     UserDAO dao = new UserDAO();
                     List<Achievement> achievements = null;
                     try {

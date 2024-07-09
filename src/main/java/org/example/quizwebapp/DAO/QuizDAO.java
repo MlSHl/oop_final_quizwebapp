@@ -111,7 +111,6 @@ public class QuizDAO {
                         question.setQuestionId(questionId);
                         quiz.getQuestions().add(question);
 
-                        // Populate answers for the current question
                         try (PreparedStatement answerStatement = connection.prepareStatement(answerSql)) {
                             answerStatement.setInt(1, questionId);
                             ResultSet answerResultSet = answerStatement.executeQuery();

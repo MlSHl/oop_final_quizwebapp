@@ -10,10 +10,7 @@ import org.example.quizwebapp.Utils.PasswordEncryptor;
 import org.example.quizwebapp.Utils.UserValidation;
 
 import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -245,7 +242,7 @@ public class UserDAO {
         Connection connection = connectionPool.getConnection();
 
         String quizSql = "SELECT quiz_id, quiz_name, quiz_desc FROM quizzes " +
-                "WHERE creator_name = ?";
+                "WHERE creator_name = ? ORDER BY quiz_id DESC";
         String questionSql = "SELECT question_id, question_text FROM questions WHERE quiz_id = ?";
         String answerSql = "SELECT answer_text, answer_type FROM answers WHERE question_id = ?";
 
@@ -373,7 +370,8 @@ public class UserDAO {
         int quizzesPulled = 0;
 
         String quizSql = "SELECT quiz_id, quiz_name, quiz_desc FROM quizzes " +
-                "WHERE quiz_id IN (SELECT DISTINCT quiz_id FROM user_quiz_scores WHERE user_name = ?)";
+                "WHERE quiz_id IN (SELECT DISTINCT quiz_id FROM user_quiz_scores WHERE user_name = ?)" +
+                "ORDER BY quiz_id DESC";
         String questionSql = "SELECT question_id, question_text FROM questions WHERE quiz_id = ?";
         String answerSql = "SELECT answer_text, answer_type FROM answers WHERE question_id = ?";
 
@@ -424,5 +422,157 @@ public class UserDAO {
         }
 
         return quizzes;
+    }
+
+    public List<Object> getRecentFriendActivities(String username) throws SQLException, ClassNotFoundException {
+        List<Object> recentActivities = new ArrayList<>();
+
+        List<String> friendUsernames = retrieveFriendUsernames(username);
+
+        Quiz recentTakenQuiz = retrieveMostRecentQuizTakenByFriend(friendUsernames);
+        if (recentTakenQuiz != null) {
+            recentActivities.add(recentTakenQuiz);
+        }else{
+            recentActivities.add(-1);
+        }
+
+        Quiz recentCreatedQuiz = retrieveMostRecentQuizCreatedByFriend(friendUsernames);
+        if (recentCreatedQuiz != null) {
+            recentActivities.add(recentCreatedQuiz);
+        }else{
+            recentActivities.add(-1);
+        }
+
+        Achievement recentAchievement = retrieveMostRecentAchievementByFriend(friendUsernames);
+        if (recentAchievement != null) {
+            recentActivities.add(recentAchievement);
+        }else{
+            recentActivities.add(-1);
+        }
+
+        return recentActivities;
+    }
+
+    private List<String> retrieveFriendUsernames(String username) throws SQLException, ClassNotFoundException {
+        List<String> friendUsernames = new ArrayList<>();
+        List<User> friends = getFriendList(username);
+        for(User friend : friends){
+            friendUsernames.add(friend.getUsername());
+        }
+        return friendUsernames;
+    }
+
+    private Quiz retrieveMostRecentQuizTakenByFriend(List<String> friendUsernames) throws SQLException, ClassNotFoundException {
+        Quiz recentQuizTaken = null;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String sql = "SELECT q.quiz_id, q.quiz_name, q.quiz_desc " +
+                "FROM user_quiz_scores uqs " +
+                "JOIN quizzes q ON uqs.quiz_id = q.quiz_id " +
+                "WHERE uqs.username IN (" + createInClause(friendUsernames.size()) + ") " +
+                "ORDER BY uqs.quiz_completed_at DESC " +
+                "LIMIT 1";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < friendUsernames.size(); i++) {
+                statement.setString(i + 1, friendUsernames.get(i));
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int quizId = resultSet.getInt("quiz_id");
+                String quizName = resultSet.getString("quiz_name");
+                String quizDesc = resultSet.getString("quiz_desc");
+
+                recentQuizTaken = new Quiz(quizName, quizDesc, new ArrayList<>());
+                recentQuizTaken.setId(quizId);
+
+            }
+        } finally {
+            connection.close();
+        }
+
+        return recentQuizTaken;
+    }
+
+    private Quiz retrieveMostRecentQuizCreatedByFriend(List<String> friendUsernames) throws SQLException, ClassNotFoundException {
+        Quiz recentQuizCreated = null;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String sql = "SELECT q.quiz_id, q.quiz_name, q.quiz_desc " +
+                "FROM quizzes q " +
+                "WHERE q.creator_name IN (" + createInClause(friendUsernames.size()) + ") " +
+                "ORDER BY q.quiz_id DESC " +
+                "LIMIT 1";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < friendUsernames.size(); i++) {
+                statement.setString(i + 1, friendUsernames.get(i));
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int quizId = resultSet.getInt("quiz_id");
+                String quizName = resultSet.getString("quiz_name");
+                String quizDesc = resultSet.getString("quiz_desc");
+
+                recentQuizCreated = new Quiz(quizName, quizDesc, new ArrayList<>());
+                recentQuizCreated.setId(quizId);
+            }
+        } finally {
+            connection.close();
+        }
+
+        return recentQuizCreated;
+    }
+
+
+    public Achievement retrieveMostRecentAchievementByFriend(List<String> friendUsernames)
+            throws SQLException, ClassNotFoundException {
+        Achievement recentAchievement = null;
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String sql = "SELECT ad.achievement_name, ad.achievement_desc, ad.achievement_img " +
+                "FROM user_achievement ua " +
+                "JOIN achievement_desc ad ON ua.achievement_id = ad.achievement_id " +
+                "WHERE ua.username IN (" + createInClause(friendUsernames.size()) + ") " +
+                "ORDER BY ua.id DESC " +
+                "LIMIT 1";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < friendUsernames.size(); i++) {
+                statement.setString(i + 1, friendUsernames.get(i));
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String achievementName = resultSet.getString("achievement_name");
+                String achievementDesc = resultSet.getString("achievement_desc");
+                String achievementImg = resultSet.getString("achievement_img");
+
+                recentAchievement = new Achievement(achievementName, achievementDesc, achievementImg);
+            }
+        } finally {
+            connection.close();
+        }
+
+        return recentAchievement;
+    }
+
+    private String createInClause(int size) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            sb.append("?");
+            if (i < size - 1) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
     }
 }

@@ -124,4 +124,12 @@ button.grdzeli:hover {
     background-color: #153a4f;
 }
 
+/* TWO COLUMNS */
+main {
+    text-align: center;
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: auto auto;
+    margin: 20px;
+}
 

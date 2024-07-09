@@ -28,7 +28,8 @@
         throw new RuntimeException(e);
     }
 %>
-
+<main>
+<div class="users">
 <h2>Users</h2>
 <%
     if (userList != null && !userList.isEmpty()) {
@@ -49,7 +50,8 @@
 <%
     }
 %>
-
+</div>
+<div class="quizzes">
 <h2>Quizzes</h2>
 <%
     if (quizList != null && !quizList.isEmpty()) {
@@ -68,6 +70,7 @@
 <%
     }
 %>
-
+</div>
+</main>
 </body>
 </html>

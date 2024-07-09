@@ -25,7 +25,7 @@
 <h1>Quiz Result</h1>
 <section class = "res">
 <p>Your score: <%= score %></p>
-<a href="quizzes.jsp">Back to Quizzes</a>
+<a href="home-page.jsp">Back to Home Page</a>
 </section>
 </body>
 </html>

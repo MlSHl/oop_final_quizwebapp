@@ -89,9 +89,15 @@ CREATE TABLE friends(
 
 
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
-VALUES ('Immortal', 'Unbeaten', 'image/Immortal.png');
+VALUES ('Amateur Author', 'The user created a quiz.', 'image/Immortal.png');
+INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
+VALUES ('Quiz Machine', 'The User Created 10 Quizzes', 'image/QuizMachine.png');
 INSERT INTO user_achievements (user_name, achievement_id)
 VALUES ('user1', 1);
+INSERT INTO user_achievements (user_name, achievement_id)
+VALUES ('user1', 2);
+INSERT INTO user_achievements (user_name, achievement_id)
+VALUES ('user2', 2);
 INSERT INTO friends (user_name, friend_name)
 VALUES ('user2', 'user1');
 INSERT INTO friends (user_name, friend_name)

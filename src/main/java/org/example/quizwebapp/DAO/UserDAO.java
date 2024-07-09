@@ -1,6 +1,7 @@
 package org.example.quizwebapp.DAO;
 
 
+import org.example.quizwebapp.CustomExceptions.RequestAlreadyExists;
 import org.example.quizwebapp.CustomExceptions.RequestDoesntExist;
 import org.example.quizwebapp.CustomExceptions.UserAlreadyExistsException;
 import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
@@ -132,8 +133,10 @@ public class UserDAO {
     }
 
 
-    public void requestFriendship(User requester, User receiver) throws SQLException, ClassNotFoundException {
-
+    public void requestFriendship(User requester, User receiver) throws SQLException, ClassNotFoundException, RequestAlreadyExists {
+        if(checkIfFriendRequestExists(receiver, requester)){
+            throw new RequestAlreadyExists("Friend Request Already Exists");
+        }
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;

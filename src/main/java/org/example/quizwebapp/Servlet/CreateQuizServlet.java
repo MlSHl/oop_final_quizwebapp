@@ -108,4 +108,5 @@ public class CreateQuizServlet extends HttpServlet {
                 ConnectionPool.releaseConnection(connection);
             }
         }
+ }
 }

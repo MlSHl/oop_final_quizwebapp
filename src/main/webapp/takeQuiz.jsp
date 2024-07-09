@@ -28,6 +28,7 @@
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
+        int quizId = Integer.parseInt(request.getParameter("quizId"));
         String token = (String) request.getSession().getAttribute("token");
         String userName = JwtUtil.extractUsername(token);
 

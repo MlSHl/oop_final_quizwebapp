@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="org.example.quizwebapp.DAO.ConnectionPool" %>
+<%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -27,8 +28,8 @@
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        int quizId = Integer.parseInt(request.getParameter("quizId"));
-        String userName = "Mishi"; // Replace with the actual logged-in user name
+        String token = (String) request.getSession().getAttribute("token");
+        String userName = JwtUtil.extractUsername(token);
 
         try {
             pool = ConnectionPool.getInstance();

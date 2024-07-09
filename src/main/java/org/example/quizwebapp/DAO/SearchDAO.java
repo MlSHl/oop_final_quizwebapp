@@ -30,7 +30,9 @@ public class SearchDAO {
         } catch (UserNotFoundException e) {
             throw new RuntimeException(e);
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            //ConnectionPool.releaseConnection(connection);
         }
 
         return usersList;
@@ -54,7 +56,7 @@ public class SearchDAO {
                 quizList.addAll(quizMatchName);
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return quizList;
@@ -78,7 +80,8 @@ public class SearchDAO {
                 quizList.addAll(quizMatchDesc);
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
         }
         return quizList;
     }

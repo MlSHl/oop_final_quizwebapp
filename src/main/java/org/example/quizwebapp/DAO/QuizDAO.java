@@ -125,7 +125,9 @@ public class QuizDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            // connection.close();
         }
 
         return quizzes;

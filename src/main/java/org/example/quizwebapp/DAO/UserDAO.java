@@ -292,7 +292,9 @@ public class UserDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            // ConnectionPool.releaseConnection(connection);
         }
 
         return quizzes;
@@ -316,7 +318,7 @@ public class UserDAO {
                 totalPoints = resultSet.getInt("total_points");
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return totalPoints;
@@ -423,7 +425,9 @@ public class UserDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            // ConnectionPool.releaseConnection(connection);
         }
 
         return quizzes;
@@ -496,7 +500,9 @@ public class UserDAO {
 
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            // ConnectionPool.releaseConnection(connection);
         }
 
         return recentQuizTaken;
@@ -529,7 +535,9 @@ public class UserDAO {
                 recentQuizCreated.setId(quizId);
             }
         } finally {
-            connection.close();
+
+            ConnectionPool.releaseConnection(connection);
+            // ConnectionPool.releaseConnection(connection);
         }
 
         return recentQuizCreated;
@@ -564,7 +572,7 @@ public class UserDAO {
                 recentAchievement = new Achievement(achievementName, achievementDesc, achievementImg);
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return recentAchievement;

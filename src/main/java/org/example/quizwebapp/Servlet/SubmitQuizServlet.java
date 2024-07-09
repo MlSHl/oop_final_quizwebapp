@@ -1,4 +1,4 @@
-package org.example.quizwebapp.servlet;
+package org.example.quizwebapp.Servlet;
 
 import org.example.quizwebapp.DAO.ConnectionPool;
 
@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/submitQuiz")
 public class SubmitQuizServlet extends HttpServlet {
@@ -31,7 +33,7 @@ public class SubmitQuizServlet extends HttpServlet {
             conn = pool.getConnection();
 
             // Fetch correct answers
-            String correctAnswersQuery = "SELECT answer_id FROM answers WHERE question_id IN (SELECT question_id FROM questions WHERE quiz_id = ?) AND answer_type = 'C'";
+            String correctAnswersQuery = "SELECT question_id, answer_id FROM answers WHERE question_id IN (SELECT question_id FROM questions WHERE quiz_id = ?) AND answer_type = 'C'";
             stmt = conn.prepareStatement(correctAnswersQuery);
             stmt.setInt(1, quizId);
             rs = stmt.executeQuery();
@@ -39,10 +41,15 @@ public class SubmitQuizServlet extends HttpServlet {
             int totalCorrectAnswers = 0;
 
             while (rs.next()) {
+                int questionId = rs.getInt("question_id");
                 int answerId = rs.getInt("answer_id");
-                String param = "answer_" + answerId;
-                if (request.getParameter(param) != null) {
-                    totalCorrectAnswers++;
+                String[] selectedAnswers = request.getParameterValues("question_" + questionId);
+                if (selectedAnswers != null) {
+                    for (String selectedAnswer : selectedAnswers) {
+                        if (Integer.parseInt(selectedAnswer) == answerId) {
+                            totalCorrectAnswers++;
+                        }
+                    }
                 }
             }
 

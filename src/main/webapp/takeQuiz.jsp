@@ -73,7 +73,7 @@
                 }
             %>
             <li>
-                <input type="checkbox" name="answer_<%= questionId %>" value="<%= answerId %>" id="answer_<%= answerId %>">
+                <input type="checkbox" name="question_<%= questionId %>" value="<%= answerId %>" id="answer_<%= answerId %>">
                 <label for="answer_<%= answerId %>"><%= answerText %></label>
             </li>
             <%

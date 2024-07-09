@@ -11,7 +11,6 @@
     <ul class="nav-ul">
         <li class="nav-li"><a href="#"><img class="logo" src="image/logo.jpg"></a></li>
         <li class="nav-li"><a href="login.jsp">Log In<i class="fas fa-user nav-icon"></i></a></li>
-        <li class="nav-li"><a href="#"><i class="fas fa-pencil-alt nav-icon"></i>Leaderboard</a></li>
     </ul>
 
 </nav>

@@ -1,6 +1,7 @@
 package org.example.quizwebapp.DAO;
 
 
+import org.example.quizwebapp.CustomExceptions.RequestDoesntExist;
 import org.example.quizwebapp.CustomExceptions.UserAlreadyExistsException;
 import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
 import org.example.quizwebapp.Model.Achievement;
@@ -157,8 +158,64 @@ public class UserDAO {
         }
     }
 
-    public void acceptFriendship(User accepter, User requester) { //TODO
-        // Implementation
+    public boolean checkIfFriendRequestExists(User acceptor, User requester) throws SQLException, ClassNotFoundException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+        String checkRequestSQL = "SELECT COUNT(*) FROM friend_requests WHERE sender_name = ? AND reciever_name = ?";
+
+        try (PreparedStatement checkRequestStatement = connection.prepareStatement(checkRequestSQL)) {
+            checkRequestStatement.setString(1, requester.getUsername());
+            checkRequestStatement.setString(2, acceptor.getUsername());
+            try (ResultSet resultSet = checkRequestStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        } finally {
+            ConnectionPool.releaseConnection(connection);
+        }
+        return false;
+    }
+
+
+    public void acceptFriendship(User accepter, User requester) throws RequestDoesntExist, SQLException, ClassNotFoundException {
+        if(!checkIfFriendRequestExists(accepter, requester)){
+            throw new RequestDoesntExist("Can not accept a friend request that doesn't exist");
+        }
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+
+            String deleteRequestSQL = "DELETE FROM friend_requests WHERE sender_name = ? AND reciever_name = ?";
+            try (PreparedStatement deleteRequestStatement = connection.prepareStatement(deleteRequestSQL)) {
+                deleteRequestStatement.setString(1, requester.getUsername());
+                deleteRequestStatement.setString(2, accepter.getUsername());
+                deleteRequestStatement.executeUpdate();
+            }
+
+            String insertFriendSQL = "INSERT INTO friends (user_name, friend_name) VALUES (?, ?)";
+            try (PreparedStatement insertFriendStatement = connection.prepareStatement(insertFriendSQL)) {
+                insertFriendStatement.setString(1, accepter.getUsername());
+                insertFriendStatement.setString(2, requester.getUsername());
+                insertFriendStatement.executeUpdate();
+
+                insertFriendStatement.setString(1, requester.getUsername());
+                insertFriendStatement.setString(2, accepter.getUsername());
+                insertFriendStatement.executeUpdate();
+            }
+
+            connection.commit();
+        } catch (SQLException e) {
+            connection.rollback();
+            throw e;
+        } finally {
+            connection.setAutoCommit(true);
+            ConnectionPool.releaseConnection(connection);
+        }
     }
 
     public void challengeToQuiz(User challenger, User opponent, Quiz quiz) { //TODO
@@ -234,33 +291,5 @@ public class UserDAO {
         return null;
         //gets numQuizzes quizzes already completed by the user logged in, sorted from newest to oldest.
     }
-
-
-//    public int getUserIdByUsername(String username) throws SQLException, ClassNotFoundException {
-//        ConnectionPool connectionPool = ConnectionPool.getInstance();
-//        Connection connection = connectionPool.getConnection();
-//        PreparedStatement statement = null;
-//        int userId = -1;
-//
-//        try {
-//            String sql = "SELECT user_name FROM quiz_db.users WHERE user_name = ?";
-//            statement = connection.prepareStatement(sql);
-//            statement.setString(1, username);
-//
-//            try (ResultSet resultSet = statement.executeQuery()) {
-//                if (resultSet.next()) {
-//                    userName = resultSet.getString("user_name");
-//                }
-//            }
-//
-//        } finally {
-//            if (statement != null) {
-//                statement.close();
-//            }
-//            ConnectionPool.releaseConnection(connection);
-//        }
-//
-//        return userId;
-//    }
 
 }

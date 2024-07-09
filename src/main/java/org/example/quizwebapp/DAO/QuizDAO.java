@@ -29,7 +29,7 @@ public class QuizDAO {
                 }
             }
         } finally {
-            quizStatement.close(); // Close quiz statement
+            quizStatement.close();
         }
 
         String insertQuestionSQL = "INSERT INTO questions (quiz_id, question_text, points) VALUES (?, ?, 1)";
@@ -66,7 +66,7 @@ public class QuizDAO {
             }
         } finally {
             questionStatement.close();
-            connectionPool.releaseConnection(connection);
+            ConnectionPool.releaseConnection(connection);
         }
     }
 

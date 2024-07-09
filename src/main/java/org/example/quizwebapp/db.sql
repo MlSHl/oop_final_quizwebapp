@@ -1,28 +1,29 @@
--- Drop tables if they exiseeROP TABLE IF EXISTS user_achievements;
+
 DROP TABLE IF EXISTS user_quiz_scores;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS questions;
-DROP TABLE IF EXISTS quizes;
+DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS achievement_desc;
 DROP TABLE IF EXISTS friends;
+Drop table if exists friend_requests;
+drop table if exists user_achievements;
 
 CREATE TABLE users(
-	user_id 	int AUTO_INCREMENT PRIMARY KEY,
 	user_name 	varchar(25) NOT NULL,
-	password	varchar(40) NOT NULL,
-	profile_picture varchar(255) DEFAULT "pictures/default.png",
+	password	varchar(255) NOT NULL,
+	-- profile_picture varchar(255) DEFAULT "pictures/default.png",
 	unique (user_name)
 );
 
 
-CREATE TABLE quizes(
+CREATE TABLE quizzes(
 	quiz_id		int AUTO_INCREMENT PRIMARY KEY,
     quiz_name   varchar(255),
     quiz_desc   varchar(255),
-	creator_id 	int,
+	creator_name 	varchar(25),
 	-- Constraints
-	FOREIGN KEY (creator_id) REFERENCES users(user_id)
+	FOREIGN KEY (creator_name) REFERENCES users(user_name)
 );
 
 CREATE TABLE questions(
@@ -32,7 +33,7 @@ CREATE TABLE questions(
 	question_image	varchar(255), -- if empty then display no image 
 	points		int NOT NULL, -- how many points you get for getting the question right
 	-- Constraints
-	FOREIGN KEY (quiz_id) REFERENCES quizes(quiz_id)
+	FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)
 );
 
 CREATE TABLE answers(
@@ -47,13 +48,13 @@ CREATE TABLE answers(
 );
 
 CREATE TABLE user_quiz_scores(
-	user_id		int,
+	user_name		varchar(25),
 	quiz_id		int,
 	best_score	int,
 	last_score	int,
-	PRIMARY KEY (user_id, quiz_id),
-    	FOREIGN KEY (user_id) REFERENCES users(user_id),
-    	FOREIGN KEY (quiz_id) REFERENCES quizes(quiz_id)	
+	PRIMARY KEY (user_name, quiz_id),
+    	FOREIGN KEY (user_name) REFERENCES users(user_name),
+    	FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)
 );
 
 
@@ -66,20 +67,20 @@ CREATE TABLE achievement_desc(
 
 -- Achievements
 CREATE TABLE user_achievements(
-	user_id 		int, -- foreign key
+	user_name 	varchar(25) , -- foreign key
 	achievement_id 		int,
-	FOREIGN KEY (user_id) REFERENCES users(user_id),
+	FOREIGN KEY (user_name) REFERENCES users(user_name),
     	FOREIGN KEY (achievement_id) REFERENCES achievement_desc(achievement_id)
 );
 
 -- TODO: ADD FRIENDS
 
 CREATE TABLE friend_requests(
-	sender_id 		int,
-	reciever_id		int
+	sender_name		varchar(25),
+	reciever_name	varchar(25)
 );
 
 CREATE TABLE friends(
-	user_id			int,
-	friend_id		int
+	user_name			varchar(25),
+	friend_name		varchar(25)
 )

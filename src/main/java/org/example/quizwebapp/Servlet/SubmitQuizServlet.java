@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet("/submitQuiz")
 public class SubmitQuizServlet extends HttpServlet {
@@ -41,45 +43,37 @@ public class SubmitQuizServlet extends HttpServlet {
             boolean allCorrect = true;
             int totalScore = 0;
             int answerCount = 0;
-
             while (rs.next()) {
                 int questionId = rs.getInt("question_id");
                 int answerId = rs.getInt("answer_id");
                 String answerType = rs.getString("answer_type");
 
+                if(questionId != cur_question_id) {
+                    if(allCorrect) totalScore += answerCount;
+                    answerCount=0;
+                    allCorrect = true;
+                }
+                cur_question_id = questionId;
+
+                allCorrect = true;
+                answerCount=0;
                 // Check if this answer was selected by the user
                 String[] selectedAnswers = request.getParameterValues("question_" + questionId);
 
+
                 if (selectedAnswers != null) {
-                    // Track correct answers for the current question
-                    int correctAnswerCount = 0;
-                    for (String selectedAnswer : selectedAnswers) {
-                        if (Integer.parseInt(selectedAnswer) == answerId && answerType.equals("C")) {
-                            correctAnswerCount++;
-                        } else if (Integer.parseInt(selectedAnswer) != answerId && !answerType.equals("C")) {
-                            correctAnswerCount++;
+                    for (int i = 0; i < selectedAnswers.length; i++) {
+                        if (Integer.parseInt(selectedAnswers[i]) == answerId && answerType.equals("I")) {
+                            allCorrect = false;
+                            break;
+                        } else if (Integer.parseInt(selectedAnswers[i]) == answerId && answerType.equals("C")) {
+                            answerCount++;
                         }
                     }
-
-                    // Compare correct answers count with total answers count
-                    if (correctAnswerCount == answerCount) {
-                        totalScore += correctAnswerCount;
-                    } else {
-                        allCorrect = false;
-                    }
-
-                    // Update answer count
-                    answerCount++;
-                } else {
-                    allCorrect = false;
                 }
 
-                // Reset variables for the next question
-                if (questionId != cur_question_id) {
-                    cur_question_id = questionId;
-                    answerCount = 0;
-                }
             }
+            if(allCorrect) totalScore += answerCount;
 
             // Update user quiz scores
             String userQuizQuery = "SELECT best_score FROM user_quiz_scores WHERE user_name = ? AND quiz_id = ?";
@@ -126,5 +120,14 @@ public class SubmitQuizServlet extends HttpServlet {
             if (stmt != null) try { stmt.close(); } catch (SQLException ignore) {}
             if (conn != null) { ConnectionPool.releaseConnection(conn); }
         }
+    }
+
+    private boolean markedAll(String[] selectedAnswers) {
+        for (String selectedAnswer : selectedAnswers) {
+            if(!selectedAnswer.isEmpty()){
+                return false;
+            }
+        }
+        return true;
     }
 }

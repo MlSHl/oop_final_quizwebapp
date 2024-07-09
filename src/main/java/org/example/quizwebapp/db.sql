@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS user_quiz_scores;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
-
+drop table if exists quizes;
 drop table if exists user_achievements;
 DROP TABLE IF EXISTS achievement_desc;
 DROP TABLE IF EXISTS friends;

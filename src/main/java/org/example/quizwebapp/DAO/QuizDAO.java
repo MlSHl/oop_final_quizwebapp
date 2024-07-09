@@ -71,8 +71,64 @@ public class QuizDAO {
         }
     }
 
-    public List<Quiz> getPopularQuizzes(int numQUizzes){
-        return null;
+    public List<Quiz> getPopularQuizzes(int numQuizzes) throws SQLException, ClassNotFoundException {
+        List<Quiz> quizzes = new ArrayList<>();
+
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        int quizzesPulled = 0;
+
+        String quizSql = "SELECT quiz_id, quiz_name, quiz_desc FROM quizzes " +
+                "ORDER BY times_taken desc";
+        String questionSql = "SELECT question_id, question_text FROM questions WHERE quiz_id = ?";
+        String answerSql = "SELECT answer_text, answer_type FROM answers WHERE question_id = ?";
+
+        try (PreparedStatement quizStatement = connection.prepareStatement(quizSql)) {
+            ResultSet quizResultSet = quizStatement.executeQuery();
+
+            while (quizResultSet.next() && quizzesPulled < numQuizzes) {
+                int quizId = quizResultSet.getInt("quiz_id");
+                String quizName = quizResultSet.getString("quiz_name");
+                String quizDesc = quizResultSet.getString("quiz_desc");
+
+                Quiz quiz = new Quiz(quizName, quizDesc, new ArrayList<>());
+                quiz.setId(quizId);
+
+                try (PreparedStatement questionStatement = connection.prepareStatement(questionSql)) {
+                    questionStatement.setInt(1, quizId);
+                    ResultSet questionResultSet = questionStatement.executeQuery();
+
+                    while (questionResultSet.next()) {
+                        int questionId = questionResultSet.getInt("question_id");
+                        String questionText = questionResultSet.getString("question_text");
+
+                        Question question = new Question(questionText);
+                        question.setQuestionId(questionId);
+                        quiz.getQuestions().add(question);
+
+                        try (PreparedStatement answerStatement = connection.prepareStatement(answerSql)) {
+                            answerStatement.setInt(1, questionId);
+                            ResultSet answerResultSet = answerStatement.executeQuery();
+
+                            while (answerResultSet.next()) {
+                                String answerText = answerResultSet.getString("answer_text");
+                                String answerType = answerResultSet.getString("answer_type");
+
+                                boolean isCorrect = "C".equals(answerType);
+                                question.addAnswer(answerText, isCorrect);
+                            }
+                        }
+                    }
+                }
+                quizzesPulled++;
+                quizzes.add(quiz);
+            }
+        } finally {
+            connection.close();
+        }
+
+        return quizzes;
     }
 
     public List<Quiz> getRecentQuizzes(int numQuizzes) throws SQLException, ClassNotFoundException {

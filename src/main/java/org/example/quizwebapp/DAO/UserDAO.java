@@ -362,7 +362,7 @@ public class UserDAO {
         return friendList;
     }
 
-    public int getQuizAmount(String userName) throws SQLException, ClassNotFoundException {
+    public int getTakenQuizAmount(String userName) throws SQLException, ClassNotFoundException {
                 ConnectionPool connectionPool = ConnectionPool.getInstance();
                 Connection connection = connectionPool.getConnection();
 
@@ -382,7 +382,29 @@ public class UserDAO {
                 }
 
                 return quizCount;
+    }
+
+    public int getCreatedQuizAmount(String username) throws SQLException, ClassNotFoundException {
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String sql = "SELECT COUNT(quiz_id) AS quiz_count FROM quizzes WHERE creator_name = ?";
+
+        int quizCount = 0;
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                quizCount = resultSet.getInt("quiz_count");
             }
+        } finally {
+            ConnectionPool.releaseConnection(connection);
+        }
+
+        return quizCount;
+    }
 
     public List<Quiz> getUserCompletedQuizzes(int numQuizzes, String username) throws SQLException, ClassNotFoundException {
         List<Quiz> quizzes = new ArrayList<>();

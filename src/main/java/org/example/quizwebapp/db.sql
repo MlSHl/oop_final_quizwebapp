@@ -75,8 +75,6 @@ CREATE TABLE user_achievements(
     	FOREIGN KEY (achievement_id) REFERENCES achievement_desc(achievement_id)
 );
 
--- TODO: ADD FRIENDS
-
 CREATE TABLE friend_requests(
 	sender_name		varchar(25),
 	reciever_name	varchar(25)
@@ -87,25 +85,14 @@ CREATE TABLE friends(
 	friend_name		varchar(25)
 );
 
-UPDATE achievement_desc
-SET achievement_name = 'Amateur Author'
-WHERE achievement_id = 1;
-
-UPDATE achievement_desc
-SET achievement_desc = 'The User Created a Quiz'
-WHERE achievement_id = 1;
-
+-- Add Standard Achievements to the Achievement Table
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
-VALUES ('Amateur Author', 'The User Created a Quiz.', 'image/Immortal.png');
+VALUES ('Amateur Author', 'The User Created a Quiz.', 'image/AmateurAuthor.png');
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
-VALUES ('Quiz Machine', 'The User Created 10 Quizzes', 'image/QuizMachine.png');
-INSERT INTO user_achievements (user_name, achievement_id)
-VALUES ('nina', 1);
-INSERT INTO user_achievements (user_name, achievement_id)
-VALUES ('user1', 2);
-INSERT INTO user_achievements (user_name, achievement_id)
-VALUES ('user2', 2);
-INSERT INTO friends (user_name, friend_name)
-VALUES ('barni', 'nina');
-INSERT INTO friends (user_name, friend_name)
-Values ('nina', 'barni');
+VALUES ('Prolific Author', 'The User Created 5 Quizzes', 'image/ProlificAuthor.png');
+INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
+VALUES ('Prodigious Author', 'The User Created 10 Quizzes', 'image/ProdigiousAuthor.png');
+INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
+VALUES ('Quiz Machine', 'The User Took 10 Quizzes', 'image/QuizMachine.png');
+INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
+VALUES ('I Am The Greatest', 'The User Had The Highest Score on a Quiz', 'image/Greatest.png');

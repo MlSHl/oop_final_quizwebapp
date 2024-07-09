@@ -127,7 +127,6 @@ public class QuizDAO {
         } finally {
 
             ConnectionPool.releaseConnection(connection);
-            // connection.close();
         }
 
         return quizzes;
@@ -187,7 +186,7 @@ public class QuizDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return quizzes;
@@ -226,7 +225,7 @@ public class QuizDAO {
                         question.setQuestionId(questionId);
                         quiz.getQuestions().add(question);
 
-                        // Fetch answers for the current question
+
                         try (PreparedStatement answerStatement = connection.prepareStatement(answerSql)) {
                             answerStatement.setInt(1, questionId);
                             ResultSet answerResultSet = answerStatement.executeQuery();
@@ -245,7 +244,7 @@ public class QuizDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return quizzes;
@@ -304,10 +303,34 @@ public class QuizDAO {
                 quizzes.add(quiz);
             }
         } finally {
-            connection.close();
+            ConnectionPool.releaseConnection(connection);
         }
 
         return quizzes;
+    }
+
+    public int getQuizMaxPoints(int quizId) throws SQLException, ClassNotFoundException {
+        int  maxPoints = 0;
+        ConnectionPool connectionPool = ConnectionPool.getInstance();
+        Connection connection = connectionPool.getConnection();
+
+        String sql = "SELECT COUNT(*) AS correct_answers_count " +
+                "FROM answers " +
+                "WHERE question_id IN (SELECT question_id FROM questions WHERE quiz_id = ?) " +
+                "AND answer_type = 'C'";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, quizId);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                maxPoints = resultSet.getInt("correct_answers_count");
+            }
+        } finally {
+            ConnectionPool.releaseConnection(connection);
+        }
+
+        return maxPoints;
     }
 
 

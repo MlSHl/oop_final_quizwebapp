@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
+import org.example.quizwebapp.DAO.ConnectionPool;
 import org.example.quizwebapp.DAO.QuizDAO;
 import org.example.quizwebapp.DAO.UserDAO;
 import org.example.quizwebapp.Model.Quiz;
@@ -14,6 +15,8 @@ import org.example.quizwebapp.Model.Question;
 import org.example.quizwebapp.Utils.JwtUtil;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,4 +84,28 @@ public class CreateQuizServlet extends HttpServlet {
         request.setAttribute("quiz", quizQuestionsList);
         request.getRequestDispatcher("quiz_summary.jsp").forward(request, response);
     }
+
+    private void addAchievements(String username) throws SQLException, ClassNotFoundException {
+        int numQuizzes = userDao.getCreatedQuizAmount(username);
+        if (numQuizzes == 1 || numQuizzes == 5 || numQuizzes == 10) {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = connectionPool.getConnection();
+
+            String insertAchievementSql = "INSERT INTO user_achievements (user_name, achievement_id) VALUES (?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(insertAchievementSql)) {
+                statement.setString(1, username);
+                if(numQuizzes == 1){
+                    statement.setInt(2, 4);
+                }else if(numQuizzes == 5){
+                    statement.setInt(2, 2);
+                }else{
+                    statement.setInt(2, 3);
+                }
+
+                statement.executeUpdate();
+            } finally {
+                ConnectionPool.releaseConnection(connection);
+            }
+        }
 }

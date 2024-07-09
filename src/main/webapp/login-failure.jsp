@@ -20,17 +20,19 @@
     </section>
 </nav>
 <main>
-    <header>
-        <h2>Login Unsuccessful</h2>
-    </header>
-    <section>
-        <p style="font-size: large; color: red;">
-            <%= session.getAttribute("errorMessage") %>
-        </p>
-    </section>
-    <section>
-        <a href="index.jsp">Register</a>
-        <a href="login.jsp">Log In</a>
+    <section class = "sec-login">
+        <header class = "login-bad-txt">
+            <h2>Login Unsuccessful</h2>
+        </header>
+        <section class = "error">
+            <p>
+                <strong><%= session.getAttribute("errorMessage") %> </strong>
+            </p>
+        </section>
+        <section class = "go-back">
+            <a href="index.jsp">Register</a>
+            <a href="login.jsp">Log In</a>
+        </section>
     </section>
 </main>
 </body>

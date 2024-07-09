@@ -146,7 +146,6 @@ a {
     cursor: pointer;
     border-radius: 7px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
     border-color: #1b2e3c;
     border-style: solid;
     border-width: thin;
@@ -191,7 +190,20 @@ a:hover {
     background-color: #1b2e3c;
 }
 
-.ach-txt {
-    font-size: 23px;
-    color: #1b2e3c;
+/*.ach-txt {*/
+/*    font-size: 23px;*/
+/*    color: #1b2e3c;*/
+/*}*/
+
+.ach-img {
+    width: 29px;
+    height: 29px;
+}
+
+.ach-name, .ach-txt, .ach-img {
+    display: inline-block;
+    width: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
 }

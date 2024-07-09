@@ -25,22 +25,17 @@
 
 <main>
     <div class="registrationUnseccessful">
-    <header>
+    <header class = "login-bad-txt">
         <h2 >Registration Unsuccessful</h2>
     </header>
-    <section >
-        <p style="font-size: large; color: red;">
-            <%= session.getAttribute("errorMessage") %>
+    <section class = "error">
+        <p>
+            <strong><%= session.getAttribute("errorMessage") %> </strong>
         </p>
     </section>
-    <section>
-        <button>
+    <section class = "go-back">
         <a href="index.jsp">Go back to registration</a>
-        </button>
-    </section>
-        <button>
-            <a href="login.jsp">Log In</a>
-        </button>
+        <a href="login.jsp">Log In</a>
         </section>
     </div>
 </main>

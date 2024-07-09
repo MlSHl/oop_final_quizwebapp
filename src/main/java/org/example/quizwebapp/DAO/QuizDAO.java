@@ -43,7 +43,7 @@ public class QuizDAO {
                 throw new SQLException("Creating question failed");
             }
 
-            String insertAnswerSQL = "INSERT INTO answers (question_id, answer_text, question_type) VALUES (?, ?, ?)";
+            String insertAnswerSQL = "INSERT INTO answers (question_id, answer_text, answer_type) VALUES (?, ?, ?)";
             PreparedStatement answerStatement = connection.prepareStatement(insertAnswerSQL);
 
             List<String> answers = question.getAnswers();

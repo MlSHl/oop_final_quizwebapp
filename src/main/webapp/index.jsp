@@ -11,7 +11,7 @@
     <ul>
         <li><a href="login.jsp">Log In</a></li>
         <li><a href="quiz_creation_page.jsp">profile</a> </li>
-        <li><a href="#">Leaderboard</a> </li>
+        <li><a href="quizzes.jsp">Leaderboard</a> </li>
     </ul>
 </nav>
 <main>

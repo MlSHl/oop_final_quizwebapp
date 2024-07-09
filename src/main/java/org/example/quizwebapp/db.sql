@@ -3,11 +3,12 @@ DROP TABLE IF EXISTS user_quiz_scores;
 DROP TABLE IF EXISTS answers;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
-DROP TABLE IF EXISTS users;
+
+drop table if exists user_achievements;
 DROP TABLE IF EXISTS achievement_desc;
 DROP TABLE IF EXISTS friends;
 Drop table if exists friend_requests;
-drop table if exists user_achievements;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
 	user_name 	varchar(25) NOT NULL,
@@ -41,9 +42,9 @@ CREATE TABLE answers(
 	question_id 	int, 			-- add foreign key constraint
 	answer_text	varchar(255), 		-- option
 	-- answer_image	varchar(255),		-- display no image if empty
-	question_type	varchar(1),
+	answer_type	varchar(1),
 	-- Constraints
-	check (question_type in ('C','I')), 	-- Either 'C' or 'I' (Correct / Incorrect)
+	check (answers.answer_type in ('C','I')), 	-- Either 'C' or 'I' (Correct / Incorrect)
 	FOREIGN KEY (question_id) REFERENCES questions(question_id)
 );
 

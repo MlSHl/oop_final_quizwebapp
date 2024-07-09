@@ -23,7 +23,6 @@
     </ul>
     <section class="search">
         <form action="SearchServlet" method="get">
-            <label for="searchQuery">Enter search term:</label>
             <input type="text" id="searchQuery" name="searchQuery" class="search-field" required>
             <button type="submit" class="search-button">Search</button>
         </form>

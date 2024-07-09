@@ -3,13 +3,17 @@ import org.example.quizwebapp.CustomExceptions.RequestAlreadyExists;
 import org.example.quizwebapp.CustomExceptions.RequestDoesntExist;
 import org.example.quizwebapp.CustomExceptions.UserAlreadyExistsException;
 import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
+import org.example.quizwebapp.DAO.ConnectionPool;
 import org.example.quizwebapp.Model.User;
 import org.example.quizwebapp.DAO.UserDAO;
 
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class UserDAOTests extends TestCase {
+
     public void test1() throws SQLException, NoSuchAlgorithmException, UserAlreadyExistsException, ClassNotFoundException, UserNotFoundException {
         User user1 = new User("useri", "password");
         UserDAO userDAO = new UserDAO();

@@ -84,6 +84,8 @@ nav {
     cursor: pointer;
     color: #333;
     font-size: 16px;
+    width: auto;
+    margin-top: 5px;
 }
 
 .search-button:hover {

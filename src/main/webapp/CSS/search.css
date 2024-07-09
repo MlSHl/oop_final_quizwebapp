@@ -1,9 +1,96 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.6;
     padding: 20px;
 }
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #1b2e3c;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.nav-ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-li {
+    margin: 0 15px;
+}
+
+.nav-li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+}
+
+.nav-li a:hover {
+    color: #E7F0F6;
+}
+
+.nav-icon {
+    margin-right: 8px;
+}
+
+/* "weroebi" styling */
+.nav-li:first-child a {
+    font-family: 'Cursive', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Search bar styling */
+.search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    max-width: 400px;
+}
+
+.search-field {
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 5px;
+    font-size: 16px;
+    flex-grow: 1;
+}
+
+.search-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #333;
+    font-size: 16px;
+}
+
+.search-button:hover {
+    color: #1b2e3c;
+}
+
+.logo {
+    width:128px;
+    height:128px;
+    display: inline;
+}
+
 
 h1 {
     color: #1b2e3c;
@@ -36,3 +123,5 @@ button.grdzeli {
 button.grdzeli:hover {
     background-color: #153a4f;
 }
+
+

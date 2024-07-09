@@ -8,13 +8,16 @@
 </head>
 <body>
 <nav>
-    <ul>
-        <li><a href="login.jsp">Log In</a></li>
-        <li><a href="quiz_creation_page.jsp">profile</a> </li>
-        <li><a href="quizzes.jsp">Leaderboard</a> </li>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="#"><img class="logo" src="image/logo.jpg"></a></li>
+        <li class="nav-li"><a href="login.jsp">Log In<i class="fas fa-user nav-icon"></i></a></li>
+        <li class="nav-li"><a href="#"><i class="fas fa-pencil-alt nav-icon"></i>Leaderboard</a></li>
     </ul>
+
 </nav>
+
 <main>
+    <div class="loginInfo">
     <header>
         <h2>User Registration</h2>
     </header>
@@ -28,6 +31,7 @@
 
         <input type="submit" value="Register">
     </form>
+        </div>
 </main>
 </body>
 </html>

@@ -94,6 +94,11 @@ nav {
 .search-button:hover {
     color: #1b2e3c;
 }
+.logo {
+    width:128px;
+    height:128px;
+    display: inline;
+}
 
 /* Main section styling */
 main {
@@ -199,11 +204,7 @@ legend {
     grid-template-columns: auto auto;
 }
 
-.logo {
-    width:128px;
-    height:128px;
-    display: inline;
-}
+
 
 .friends button {
     display: block;

@@ -105,7 +105,7 @@ public class UserDAO {
         String sql = "SELECT ad.achievement_name, ad.achievement_desc, ad.achievement_img " +
                 "FROM quiz_db.user_achievements ua " +
                 "JOIN quiz_db.achievement_desc ad ON ua.achievement_id = ad.achievement_id " +
-                "JOIN quiz_db.users u ON ua.user_id = u.user_id " +
+                "JOIN quiz_db.users u ON ua.user_name = u.user_name " +
                 "WHERE u.user_name = ?";
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
@@ -136,22 +136,16 @@ public class UserDAO {
 
 
     public void requestFriendship(User requester, User receiver) throws SQLException, ClassNotFoundException {
-        int requestId = getUserIdByUsername(requester.getUsername());
-        int receiveId = getUserIdByUsername(receiver.getUsername());
-
-        if (requestId == -1 || receiveId == -1) {
-            throw new IllegalArgumentException("Invalid requester or receiver username");
-        }
 
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         PreparedStatement statement = null;
 
         try {
-            String sql = "INSERT INTO quiz_db.friend_requests (sender_id, reciever_id) VALUES (?, ?)";
+            String sql = "INSERT INTO quiz_db.friend_requests (sender_name, reciever_name) VALUES (?, ?)";
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, requestId);
-            statement.setInt(2, receiveId);
+            statement.setString(1, requester.getUsername());
+            statement.setString(2, receiver.getUsername());
 
             statement.executeUpdate();
 
@@ -204,8 +198,8 @@ public class UserDAO {
         try {
             String sql = "SELECT u.* " +
                     "FROM quiz_db.friends f " +
-                    "JOIN quiz_db.users u ON f.friend_id = u.user_id " +
-                    "WHERE f.user_id = (SELECT user_id FROM quiz_db.users WHERE user_name = ?)";
+                    "JOIN quiz_db.users u ON f.friend_name = u.user_name " +
+                    "WHERE f.user_name = (SELECT user_name FROM quiz_db.users WHERE user_name = ?)";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
@@ -242,31 +236,31 @@ public class UserDAO {
     }
 
 
-    public int getUserIdByUsername(String username) throws SQLException, ClassNotFoundException {
-        ConnectionPool connectionPool = ConnectionPool.getInstance();
-        Connection connection = connectionPool.getConnection();
-        PreparedStatement statement = null;
-        int userId = -1;
-
-        try {
-            String sql = "SELECT user_id FROM quiz_db.users WHERE user_name = ?";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, username);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    userId = resultSet.getInt("user_id");
-                }
-            }
-
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-            ConnectionPool.releaseConnection(connection);
-        }
-
-        return userId;
-    }
+//    public int getUserIdByUsername(String username) throws SQLException, ClassNotFoundException {
+//        ConnectionPool connectionPool = ConnectionPool.getInstance();
+//        Connection connection = connectionPool.getConnection();
+//        PreparedStatement statement = null;
+//        int userId = -1;
+//
+//        try {
+//            String sql = "SELECT user_name FROM quiz_db.users WHERE user_name = ?";
+//            statement = connection.prepareStatement(sql);
+//            statement.setString(1, username);
+//
+//            try (ResultSet resultSet = statement.executeQuery()) {
+//                if (resultSet.next()) {
+//                    userName = resultSet.getString("user_name");
+//                }
+//            }
+//
+//        } finally {
+//            if (statement != null) {
+//                statement.close();
+//            }
+//            ConnectionPool.releaseConnection(connection);
+//        }
+//
+//        return userId;
+//    }
 
 }

@@ -5,10 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
 import org.example.quizwebapp.DAO.QuizDAO;
+import org.example.quizwebapp.DAO.UserDAO;
 import org.example.quizwebapp.Model.Quiz;
 import org.example.quizwebapp.Model.User;
 import org.example.quizwebapp.Servlet.Question;
+import org.example.quizwebapp.Utils.JwtUtil;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,6 +23,8 @@ import java.util.stream.Collectors;
 @WebServlet("/CreateQuizServlet")
 public class CreateQuizServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final UserDAO userDao = new UserDAO();
+    private static final QuizDAO quizDao = new QuizDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -36,7 +42,6 @@ public class CreateQuizServlet extends HttpServlet {
         List<Question> quizQuestionsList = new ArrayList<>();
 
         if (questions != null) {
-            QuizDAO quizDAO = new QuizDAO();
             for (int i = 0; i < questions.length; i++) {
                 String questionText = questions[i];
                 Question question = new Question(questionText);
@@ -55,10 +60,16 @@ public class CreateQuizServlet extends HttpServlet {
                 }
                 quizQuestionsList.add(question);
                 Quiz quiz = new Quiz(quizName, quizDescription, quizQuestionsList);
-                User user = new User("admin", "admin");
+                String token = (String) request.getSession().getAttribute("token");
+                User user = null;
+                try {
+                    user = userDao.getUserByUsername(JwtUtil.extractUsername(token));
+                } catch (SQLException | UserNotFoundException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
 
                 try {
-                    quizDAO.createQuiz(user, quiz);
+                    quizDao.createQuiz(user, quiz);
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }

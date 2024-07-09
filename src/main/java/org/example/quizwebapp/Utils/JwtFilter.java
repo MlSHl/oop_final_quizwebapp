@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter({"/main.jsp", "/home-page.jsp", "/UserPage.jsp"})
+@WebFilter({"/main.jsp", "/home-page.jsp", "/UserPage.jsp", "/quiz_creation_page.jsp"})
 public class JwtFilter implements Filter {
 
     private static final String SECRET_KEY = "27baef690b2ceb875b2bb0319f2a05daba6b4f9babb345555db68d01b6e51ba81e58d84984d840aea83250319807c5c1e9b202a35ae85a2fb757903565b7be41";

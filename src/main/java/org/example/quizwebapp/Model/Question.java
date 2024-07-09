@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Question {
+    private int questionId;
     private String text;
     private List<String> answers;
     private List<Boolean> correctAnswers;
@@ -19,6 +20,13 @@ public class Question {
         correctAnswers.add(isCorrect);
     }
 
+    public int getQuestionId(){
+        return questionId;
+    }
+
+    public void setQuestionId(int id){
+        questionId = id;
+    }
     public String getText() {
         return text;
     }

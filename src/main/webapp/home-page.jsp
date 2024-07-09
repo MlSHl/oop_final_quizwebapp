@@ -1,4 +1,7 @@
-
+<%@ page import="org.example.quizwebapp.DAO.QuizDAO" %>
+<%@ page import="org.example.quizwebapp.Model.Quiz" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +37,31 @@
 
         <fieldset id="recent-quizzes">
             <legend><em>Recently Created Quizzes</em></legend>
-            <ul>
-                <li><a class="grdzeli" href="#">Quiz A</a></li>
-                <li><a class="grdzeli" href="#">Quiz B</a></li>
-                <li><a class="grdzeli" href="#">Quiz C</a></li>
-            </ul>
+            <%
+                QuizDAO qd = new QuizDAO();
+                List<Quiz> quizlist = null;
+                try {
+                    quizlist = qd.getRecentQuizzes(1);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                for(Quiz q : quizlist) {
+                    int quizId = q.getId();
+                    String quizName = q.getTitle();
+            %>
+            <form action="takeQuiz.jsp" method="get">
+                <input type="hidden" name="quizId" value="<%= quizId %>">
+                <button type="submit"><%= quizName %></button>
+            </form>
+            <%
+                }
+            %>
+
+<%--//            <ul>--%>
+<%--//                <li><a class="grdzeli" href="#">Quiz A</a></li>--%>
+<%--//                <li><a class="grdzeli" href="#">Quiz B</a></li>--%>
+<%--//                <li><a class="grdzeli" href="#">Quiz C</a></li>--%>
+<%--//            </ul>--%>
         </fieldset>
 
         <fieldset id="user-activities">

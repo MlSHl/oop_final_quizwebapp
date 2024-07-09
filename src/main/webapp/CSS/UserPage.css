@@ -92,7 +92,7 @@ nav {
 }
 
 .search-button:hover {
-    color: #1b2e3c; /* Purple color */
+    color: #1b2e3c;
 }
 
 /* Main section styling */
@@ -181,7 +181,7 @@ legend {
     display: inline-block;
     padding: 10px 20px;
     margin-top: 20px;
-    background-color: #1b2e3c; /* Purple color */
+    background-color: #1b2e3c;
     color: #fff;
     border-radius: 5px;
     text-align: center;
@@ -192,7 +192,7 @@ legend {
 }
 
 .create-quiz-btn:hover {
-    background-color: #1b2e3c; /* Darker purple */
+    background-color: #1b2e3c;
 }
 .left-column{
     display: grid;
@@ -206,7 +206,7 @@ legend {
 }
 
 .friends button {
-    display: block; /* Ensures each link takes full width */
+    display: block;
     text-decoration: none;
 
     background-color: #1b2e3c;

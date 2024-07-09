@@ -77,7 +77,7 @@ nav {
 }
 
 .search-button:hover {
-    color: #1b2e3c; /* Purple color */
+    color: #1b2e3c;
 }
 
 .logo {
@@ -86,12 +86,6 @@ nav {
     display: inline;
 }
 
-
-
-
-.q-desc{
-    text-align: center;
-}
 
 .q-name-label, .q-name, .q-desc-label, textarea {
     display: block;
@@ -123,6 +117,7 @@ fieldset {
     border-style: solid;
     border-width: thin;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 .q-name-label, .q-desc-label {

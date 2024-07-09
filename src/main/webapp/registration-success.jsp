@@ -8,8 +8,8 @@
 <body>
 <nav>
     <ul>
-        <li><a href="#">Quizes</a></li>
-        <li><a href="#">Profile</a> </li>
+        <li><a href="home-page.jsp">Weroebi</a></li>
+        <li><a href="UserPage.jsp">Profile</a> </li>
         <li><a href="#">Leaderboard</a> </li>
     </ul>
 </nav>

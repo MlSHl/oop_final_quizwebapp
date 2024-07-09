@@ -37,32 +37,19 @@ public class LoginServlet extends HttpServlet {
             if (loggedInUser != null) {
                 String token = JwtUtil.generateToken(username);
 
-                // Logging token and user info
-                System.out.println("Generated Token: " + token);
-                System.out.println("LoggedIn User: " + loggedInUser.getUsername());
-
-                // Set the token and username in the session
                 request.getSession().setAttribute("token", token);
                 response.setHeader("Authorization", "Bearer " + token);
                 request.getSession().setAttribute("username", loggedInUser.getUsername());
 
-                // Fetch achievements
                 List<Achievement> achievements = userDAO.getMyAchievements(token);
-                System.out.println("Fetched Achievements: " + achievements);
 
-                // Validate achievements before setting them
                 if (achievements != null) {
                     request.setAttribute("achievements", achievements);
                     System.out.println(achievements);
                 } else {
                     System.out.println("No achievements found.");
                 }
-
-                // Forward to login-success.jsp
-                request.getRequestDispatcher("login-success.jsp").forward(request, response);
-
-                // Remove unnecessary sendRedirect
-                // response.sendRedirect("login-success.jsp"); // This line is removed
+                request.getRequestDispatcher("home-page.jsp").forward(request, response);
             } else {
                 throw new UserNotFoundException("User not found for username " + username);
             }

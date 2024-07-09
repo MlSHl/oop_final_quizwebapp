@@ -18,10 +18,11 @@
         <li class="nav-li"><a href="quiz_creation_page.jsp">create quiz</a></li>
     </ul>
     <section class="search">
-        <label>
-            <input type="text" placeholder="quizzes, users ..." class="search-field">
-        </label>
-        <button type="button" class="search-button">search</button>
+        <form action="SearchServlet" method="get">
+            <label for="searchQuery">Enter search term:</label>
+            <input type="text" id="searchQuery" name="searchQuery" required>
+            <button type="submit">Search</button>
+        </form>
     </section>
 </nav>
 <main>

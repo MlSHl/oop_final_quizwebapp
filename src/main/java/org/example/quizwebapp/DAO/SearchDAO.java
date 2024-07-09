@@ -22,7 +22,7 @@ public class SearchDAO {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                String username = resultSet.getString("username");
+                String username = resultSet.getString("user_name");
 
                 User user = userDao.getUserByUsername(username);
                 usersList.add(user);

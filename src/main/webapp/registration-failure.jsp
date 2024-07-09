@@ -7,27 +7,45 @@
     <title>Registration Unsuccessful</title>
 </head>
 <body>
+
 <nav>
-    <ul>
-        <li><a href="#">Quizzes</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Leaderboard</a></li>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="home-page.jsp"><img class="logo" src="image/logo.jpg"></a></li>
+        <li class="nav-li"><a href="UserPage.jsp"><i class="fas fa-user nav-icon"></i>profile</a></li>
+        <li class="nav-li"><a href="quiz_creation_page.jsp"><i class="fas fa-pencil-alt nav-icon"></i>create quiz</a></li>
     </ul>
+
+    <section class="search">
+        <input type="text" placeholder="quizzes, users ..." class="search-field">
+        <button type="button" class="search-button"><i class="fas fa-search"></i></button>
+    </section>
 </nav>
+
+
+
 <main>
+    <div class="registrationUnseccessful">
     <header>
-        <h2>Registration Unsuccessful</h2>
+        <h2 >Registration Unsuccessful</h2>
     </header>
-    <section>
+    <section >
         <p style="font-size: large; color: red;">
             <%= session.getAttribute("errorMessage") %>
         </p>
     </section>
     <section>
+        <button>
         <a href="index.jsp">Go back to registration</a>
-        <a href="login.jsp">Log In</a>
+        </button>
     </section>
+        <button>
+            <a href="login.jsp">Log In</a>
+        </button>
+        </section>
+    </div>
 </main>
+
+
 </body>
 </html>
 <% session.removeAttribute("errorMessage"); %>

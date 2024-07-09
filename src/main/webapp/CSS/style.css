@@ -273,3 +273,34 @@ main {
 #username, #password {
     width: 96%;
 }
+.registrationUnsuccessful header h2 {
+    font-size: 2em;
+    color: #1b2e3c;
+    margin-bottom: 20px;
+}
+
+.registrationUnsuccessful .error-message {
+    font-size: large;
+    color: #1b2e3c;
+    margin-bottom: 20px;
+}
+
+.registrationUnsuccessful section button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #1b2e3c;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registrationUnsuccessful section button a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.registrationUnsuccessful section button:hover {
+    background-color: #143b54;
+}

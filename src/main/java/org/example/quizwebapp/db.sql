@@ -87,9 +87,16 @@ CREATE TABLE friends(
 	friend_name		varchar(25)
 );
 
+UPDATE achievement_desc
+SET achievement_name = 'Amateur Author'
+WHERE achievement_id = 1;
+
+UPDATE achievement_desc
+SET achievement_desc = 'The User Created a Quiz'
+WHERE achievement_id = 1;
 
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
-VALUES ('Amateur Author', 'The user created a quiz.', 'image/Immortal.png');
+VALUES ('Amateur Author', 'The User Created a Quiz.', 'image/Immortal.png');
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
 VALUES ('Quiz Machine', 'The User Created 10 Quizzes', 'image/QuizMachine.png');
 INSERT INTO user_achievements (user_name, achievement_id)

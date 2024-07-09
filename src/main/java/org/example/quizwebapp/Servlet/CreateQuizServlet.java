@@ -65,19 +65,22 @@ public class CreateQuizServlet extends HttpServlet {
             }
             Quiz quiz = new Quiz(quizName, quizDescription, quizQuestionsList);
             String token = (String) request.getSession().getAttribute("token");
+            String username = JwtUtil.extractUsername(token);
             User user = null;
             try {
-                user = userDao.getUserByUsername(JwtUtil.extractUsername(token));
+                user = userDao.getUserByUsername(username);
             } catch (SQLException | UserNotFoundException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
 
             try {
                 quizDao.createQuiz(user, quiz);
+                addAchievements(username);
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         }
+
 
         request.setAttribute("quizName", quizName);
         request.setAttribute("quizDescription", quizDescription);
@@ -96,7 +99,7 @@ public class CreateQuizServlet extends HttpServlet {
             try (PreparedStatement statement = connection.prepareStatement(insertAchievementSql)) {
                 statement.setString(1, username);
                 if(numQuizzes == 1){
-                    statement.setInt(2, 4);
+                    statement.setInt(2, 1);
                 }else if(numQuizzes == 5){
                     statement.setInt(2, 2);
                 }else{

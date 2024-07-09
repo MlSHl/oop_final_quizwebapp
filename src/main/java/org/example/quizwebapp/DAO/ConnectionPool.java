@@ -11,7 +11,7 @@ public class ConnectionPool {
 
     private static ConnectionPool instance;
     private static List<Connection> connectionPool;
-    private final static int INITIAL_POOL_SIZE = 8;
+    private final static int INITIAL_POOL_SIZE = 128;
     private final static String USERNAME = "root";
     private final static String PASSWORD = "12345678";
     private final static String DB_NAME = "quiz_db";

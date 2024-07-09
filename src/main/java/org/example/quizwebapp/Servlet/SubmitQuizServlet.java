@@ -106,6 +106,22 @@ public class SubmitQuizServlet extends HttpServlet {
                 stmt.executeUpdate();
             }
 
+            String sql_get_times_taken = "SELECT times_taken from quizzes WHERE quiz_id = ?";
+            PreparedStatement s = conn.prepareStatement(sql_get_times_taken);
+            s.setInt(1, quizId);
+            ResultSet r = s.executeQuery();
+            r.next();
+            int times_taken = r.getInt("times_taken");
+
+
+            String sql_update_times_taken =
+                    "update quizzes set times_taken = ? where quiz_id = ?";
+
+            PreparedStatement pstm = conn.prepareStatement(sql_update_times_taken);
+            times_taken += 1;
+            pstm.setInt(1, times_taken);
+            pstm.setInt(2, quizId);
+            pstm.executeUpdate();
             response.sendRedirect("quizResult.jsp?quizId=" + quizId + "&score=" + totalScore);
 
         } catch (Exception e) {

@@ -59,20 +59,20 @@ public class CreateQuizServlet extends HttpServlet {
                     }
                 }
                 quizQuestionsList.add(question);
-                Quiz quiz = new Quiz(quizName, quizDescription, quizQuestionsList);
-                String token = (String) request.getSession().getAttribute("token");
-                User user = null;
-                try {
-                    user = userDao.getUserByUsername(JwtUtil.extractUsername(token));
-                } catch (SQLException | UserNotFoundException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+            }
+            Quiz quiz = new Quiz(quizName, quizDescription, quizQuestionsList);
+            String token = (String) request.getSession().getAttribute("token");
+            User user = null;
+            try {
+                user = userDao.getUserByUsername(JwtUtil.extractUsername(token));
+            } catch (SQLException | UserNotFoundException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
 
-                try {
-                    quizDao.createQuiz(user, quiz);
-                } catch (SQLException | ClassNotFoundException e) {
-                    throw new RuntimeException(e);
-                }
+            try {
+                quizDao.createQuiz(user, quiz);
+            } catch (SQLException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
 

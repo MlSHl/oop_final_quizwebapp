@@ -9,7 +9,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.quizwebapp.CustomExceptions.UserAlreadyExistsException;
 import org.example.quizwebapp.CustomExceptions.UserNotFoundException;
 import org.example.quizwebapp.DAO.UserDAO;
 import org.example.quizwebapp.Model.Achievement;

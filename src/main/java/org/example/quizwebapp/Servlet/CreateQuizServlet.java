@@ -10,7 +10,7 @@ import org.example.quizwebapp.DAO.QuizDAO;
 import org.example.quizwebapp.DAO.UserDAO;
 import org.example.quizwebapp.Model.Quiz;
 import org.example.quizwebapp.Model.User;
-import org.example.quizwebapp.Servlet.Question;
+import org.example.quizwebapp.Model.Question;
 import org.example.quizwebapp.Utils.JwtUtil;
 
 import java.io.IOException;

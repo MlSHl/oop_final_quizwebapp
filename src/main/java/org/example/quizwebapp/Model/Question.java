@@ -1,4 +1,4 @@
-package org.example.quizwebapp.Servlet;
+package org.example.quizwebapp.Model;
 
 import java.util.ArrayList;
 import java.util.List;

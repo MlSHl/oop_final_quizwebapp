@@ -1,5 +1,5 @@
 package org.example.quizwebapp.Model;// Quiz.java
-import org.example.quizwebapp.Servlet.Question;
+import org.example.quizwebapp.Model.Question;
 
 import java.util.List;
 

@@ -33,12 +33,10 @@
             <fieldset>
                 <legend><em>Main Box</em></legend>
                 <%
-                    // Extract the username from the request parameter
                     String profileUser = request.getParameter("profileUser");
 
-                    // Ensure profileUser is not null (handle scenario where no profileUser is provided)
                     if (profileUser == null) {
-                        throw new IllegalArgumentException("No profileUser specified.");
+                        profileUser =JwtUtil.extractUsername((String) request.getSession().getAttribute("token"));
                     }
 
                     // Get user details and achievements for the specified profileUser

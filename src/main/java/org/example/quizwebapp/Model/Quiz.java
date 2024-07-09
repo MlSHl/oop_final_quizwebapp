@@ -1,4 +1,4 @@
-package org.example.quizwebapp.Model;// Quiz.java
+package org.example.quizwebapp.Model;
 import org.example.quizwebapp.Model.Question;
 
 import java.util.List;

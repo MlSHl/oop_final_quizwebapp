@@ -7,6 +7,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.example.quizwebapp.DAO.UserDAO;
+import org.example.quizwebapp.Utils.JwtUtil;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +20,8 @@ import java.util.Map;
 
 @WebServlet("/submitQuiz")
 public class SubmitQuizServlet extends HttpServlet {
+
+    private final UserDAO userDao = new UserDAO();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -123,7 +128,7 @@ public class SubmitQuizServlet extends HttpServlet {
             pstm.setInt(2, quizId);
             pstm.executeUpdate();
             response.sendRedirect("quizResult.jsp?quizId=" + quizId + "&score=" + totalScore);
-
+            addAchievements(userName);
         } catch (Exception e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error processing quiz submission.");
@@ -142,4 +147,24 @@ public class SubmitQuizServlet extends HttpServlet {
         }
         return true;
     }
+
+    private void addAchievements(String userName) throws SQLException, ClassNotFoundException {
+        int numQuizzes = userDao.getQuizAmount(userName);
+        if (numQuizzes == 1) {
+            ConnectionPool connectionPool = ConnectionPool.getInstance();
+            Connection connection = connectionPool.getConnection();
+
+            String insertAchievementSql = "INSERT INTO user_achievements (user_name, achievement_id) VALUES (?, ?)";
+
+            try (PreparedStatement statement = connection.prepareStatement(insertAchievementSql)) {
+                statement.setString(1, userName);
+                statement.setInt(2, 1);
+
+                statement.executeUpdate();
+            } finally {
+                ConnectionPool.releaseConnection(connection);
+            }
+        }
+    }
+
 }

@@ -362,11 +362,27 @@ public class UserDAO {
         return friendList;
     }
 
-    public void gradeQuiz(){ //TODO
-        //needs parameters, needs to get quiz id and answers from the front,
-        //check against database answers for the quiz, count score, store it
-        //for the user that took the quiz
-    }
+    public int getQuizAmount(String userName) throws SQLException, ClassNotFoundException {
+                ConnectionPool connectionPool = ConnectionPool.getInstance();
+                Connection connection = connectionPool.getConnection();
+
+                String sql = "SELECT COUNT(quiz_id) AS quiz_count FROM user_quiz_scores WHERE user_name = ?";
+
+                int quizCount = 0;
+
+                try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                    statement.setString(1, userName);
+                    ResultSet resultSet = statement.executeQuery();
+
+                    if (resultSet.next()) {
+                        quizCount = resultSet.getInt("quiz_count");
+                    }
+                } finally {
+                    ConnectionPool.releaseConnection(connection);
+                }
+
+                return quizCount;
+            }
 
     public List<Quiz> getUserCompletedQuizzes(int numQuizzes, String username) throws SQLException, ClassNotFoundException {
         List<Quiz> quizzes = new ArrayList<>();

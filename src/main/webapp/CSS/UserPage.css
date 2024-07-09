@@ -229,4 +229,22 @@ legend {
 
 }
 
+.ach-img {
+    width: 29px;
+    height: 29px;
+}
+
+.ach-desc {
+    width: 100%;
+    height: 50%;
+}
+
+.ach-name, .ach-txt, .ach-img {
+    display: inline-block;
+    width: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+}
+
 

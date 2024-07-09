@@ -59,9 +59,11 @@
                 } else {
                     for (Achievement achievement : achievements) {
                 %>
-                <h3><%= achievement.getName() %></h3>
-                <p><%= achievement.getDescription() %></p>
-                <img src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
+                <section class = "ach-desc">
+                    <img class = "ach-img" src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
+                    <h3 class = "ach-name"><%= achievement.getName() %></h3>
+                    <p class = "ach-txt"><%= achievement.getDescription() %></p>
+                </section>
                 <%
                         }
                     }

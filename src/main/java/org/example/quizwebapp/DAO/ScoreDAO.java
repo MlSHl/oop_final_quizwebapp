@@ -76,6 +76,7 @@ public class ScoreDAO {
         pstm.setInt(1, times_taken);
         pstm.setInt(2, quizId);
         pstm.executeUpdate();
+        ConnectionPool.releaseConnection(conn);
         return totalScore;
     }
 
@@ -135,7 +136,7 @@ public class ScoreDAO {
 
             return totalScore;
         } finally {
-
+            ConnectionPool.releaseConnection(conn);
         }
     }
 }

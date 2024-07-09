@@ -46,7 +46,12 @@
                 <legend><em>Achievements</em></legend>
                 <%
                     UserDAO dao = new UserDAO();
-                    List<Achievement> achievements = dao.getAchievements(userName);
+                    List<Achievement> achievements = null;
+                    try {
+                        achievements = dao.getAchievements(userName);
+                    } catch (UserNotFoundException | SQLException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     if (achievements.isEmpty()) {
                 %>
                 <p>User doesn't have any achievements.</p>

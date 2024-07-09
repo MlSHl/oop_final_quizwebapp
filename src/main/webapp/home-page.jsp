@@ -2,6 +2,10 @@
 <%@ page import="org.example.quizwebapp.Model.Quiz" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.sql.SQLException" %>
+<%@ page import="org.example.quizwebapp.Model.Achievement" %>
+<%@ page import="org.example.quizwebapp.DAO.UserDAO" %>
+<%@ page import="org.example.quizwebapp.CustomExceptions.UserNotFoundException" %>
+<%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,14 +107,38 @@
         <fieldset id="achievements">
             <legend><em>Your Achievements</em></legend>
             <ul>
+                <%
+                    String token = (String) request.getSession().getAttribute("token");
+                    String userName = JwtUtil.extractUsername(token);
+                    UserDAO dao = new UserDAO();
+                    List<Achievement> achievements = null;
+                    try {
+                        achievements = dao.getAchievements(userName);
+                    } catch (UserNotFoundException | SQLException | ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    if (achievements.isEmpty()) {
+                %>
                 <li class="ach-txt">
-                    <p>Achievement 1</p>
+                    <p>User doesn't have any achievements.</p>
                 </li>
+                <%
+                } else {
+                    for (Achievement achievement : achievements) {
+                %>
                 <li class="ach-txt">
-                    <p>Achievement 2</p>
+                    <h3><%= achievement.getName() %></h3>
+                    <p><%= achievement.getDescription() %></p>
+                    <img src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
                 </li>
+                <%
+                        }
+                    }
+                %>
             </ul>
         </fieldset>
+
 
         <fieldset id="friends-activities">
             <legend><em>Friends' Recent Activities</em></legend>

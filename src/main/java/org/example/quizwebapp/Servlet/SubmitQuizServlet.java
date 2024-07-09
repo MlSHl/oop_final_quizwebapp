@@ -32,7 +32,6 @@ public class SubmitQuizServlet extends HttpServlet {
             pool = ConnectionPool.getInstance();
             conn = pool.getConnection();
 
-            // Fetch questions and correct answers
             String questionsQuery = "SELECT q.question_id, q.quiz_id, a.answer_id, a.answer_type FROM questions q JOIN answers a ON q.question_id = a.question_id WHERE q.quiz_id = ?";
             stmt = conn.prepareStatement(questionsQuery);
             stmt.setInt(1, quizId);
@@ -55,9 +54,7 @@ public class SubmitQuizServlet extends HttpServlet {
                 }
                 cur_question_id = questionId;
 
-                allCorrect = true;
-                answerCount=0;
-                // Check if this answer was selected by the user
+
                 String[] selectedAnswers = request.getParameterValues("question_" + questionId);
 
 
@@ -75,7 +72,6 @@ public class SubmitQuizServlet extends HttpServlet {
             }
             if(allCorrect) totalScore += answerCount;
 
-            // Update user quiz scores
             String userQuizQuery = "SELECT best_score FROM user_quiz_scores WHERE user_name = ? AND quiz_id = ?";
             stmt = conn.prepareStatement(userQuizQuery);
             stmt.setString(1, userName);

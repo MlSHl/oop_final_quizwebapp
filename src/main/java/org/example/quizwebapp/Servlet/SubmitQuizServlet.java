@@ -12,8 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet("/submitQuiz")
 public class SubmitQuizServlet extends HttpServlet {
@@ -32,24 +30,54 @@ public class SubmitQuizServlet extends HttpServlet {
             pool = ConnectionPool.getInstance();
             conn = pool.getConnection();
 
-            // Fetch correct answers
-            String correctAnswersQuery = "SELECT question_id, answer_id FROM answers WHERE question_id IN (SELECT question_id FROM questions WHERE quiz_id = ?) AND answer_type = 'C'";
-            stmt = conn.prepareStatement(correctAnswersQuery);
+            // Fetch questions and correct answers
+            String questionsQuery = "SELECT q.question_id, q.quiz_id, a.answer_id, a.answer_type FROM questions q JOIN answers a ON q.question_id = a.question_id WHERE q.quiz_id = ?";
+            stmt = conn.prepareStatement(questionsQuery);
             stmt.setInt(1, quizId);
             rs = stmt.executeQuery();
 
-            int totalCorrectAnswers = 0;
+            int cur_question_id = 0;
+
+            boolean allCorrect = true;
+            int totalScore = 0;
+            int answerCount = 0;
 
             while (rs.next()) {
                 int questionId = rs.getInt("question_id");
                 int answerId = rs.getInt("answer_id");
+                String answerType = rs.getString("answer_type");
+
+                // Check if this answer was selected by the user
                 String[] selectedAnswers = request.getParameterValues("question_" + questionId);
+
                 if (selectedAnswers != null) {
+                    // Track correct answers for the current question
+                    int correctAnswerCount = 0;
                     for (String selectedAnswer : selectedAnswers) {
-                        if (Integer.parseInt(selectedAnswer) == answerId) {
-                            totalCorrectAnswers++;
+                        if (Integer.parseInt(selectedAnswer) == answerId && answerType.equals("C")) {
+                            correctAnswerCount++;
+                        } else if (Integer.parseInt(selectedAnswer) != answerId && !answerType.equals("C")) {
+                            correctAnswerCount++;
                         }
                     }
+
+                    // Compare correct answers count with total answers count
+                    if (correctAnswerCount == answerCount) {
+                        totalScore += correctAnswerCount;
+                    } else {
+                        allCorrect = false;
+                    }
+
+                    // Update answer count
+                    answerCount++;
+                } else {
+                    allCorrect = false;
+                }
+
+                // Reset variables for the next question
+                if (questionId != cur_question_id) {
+                    cur_question_id = questionId;
+                    answerCount = 0;
                 }
             }
 
@@ -62,18 +90,18 @@ public class SubmitQuizServlet extends HttpServlet {
 
             if (rs.next()) {
                 int bestScore = rs.getInt("best_score");
-                if (totalCorrectAnswers > bestScore) {
+                if (totalScore > bestScore) {
                     String updateScoreQuery = "UPDATE user_quiz_scores SET best_score = ?, last_score = ? WHERE user_name = ? AND quiz_id = ?";
                     stmt = conn.prepareStatement(updateScoreQuery);
-                    stmt.setInt(1, totalCorrectAnswers);
-                    stmt.setInt(2, totalCorrectAnswers);
+                    stmt.setInt(1, totalScore);
+                    stmt.setInt(2, totalScore);
                     stmt.setString(3, userName);
                     stmt.setInt(4, quizId);
                     stmt.executeUpdate();
                 } else {
                     String updateScoreQuery = "UPDATE user_quiz_scores SET last_score = ? WHERE user_name = ? AND quiz_id = ?";
                     stmt = conn.prepareStatement(updateScoreQuery);
-                    stmt.setInt(1, totalCorrectAnswers);
+                    stmt.setInt(1, totalScore);
                     stmt.setString(2, userName);
                     stmt.setInt(3, quizId);
                     stmt.executeUpdate();
@@ -83,12 +111,12 @@ public class SubmitQuizServlet extends HttpServlet {
                 stmt = conn.prepareStatement(insertScoreQuery);
                 stmt.setString(1, userName);
                 stmt.setInt(2, quizId);
-                stmt.setInt(3, totalCorrectAnswers);
-                stmt.setInt(4, totalCorrectAnswers);
+                stmt.setInt(3, totalScore);
+                stmt.setInt(4, totalScore);
                 stmt.executeUpdate();
             }
 
-            response.sendRedirect("quizResult.jsp?quizId=" + quizId + "&score=" + totalCorrectAnswers);
+            response.sendRedirect("quizResult.jsp?quizId=" + quizId + "&score=" + totalScore);
 
         } catch (Exception e) {
             e.printStackTrace();

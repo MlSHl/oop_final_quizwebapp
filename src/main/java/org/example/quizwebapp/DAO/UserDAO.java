@@ -327,22 +327,24 @@ public class UserDAO {
         ResultSet resultSet = null;
 
         try {
-            String sql = "SELECT u.* " +
+            String sql = "SELECT u.user_name, u.password " +
                     "FROM quiz_db.friends f " +
                     "JOIN quiz_db.users u ON f.friend_name = u.user_name " +
-                    "WHERE f.user_name = (SELECT user_name FROM quiz_db.users WHERE user_name = ?)";
+                    "WHERE f.user_name = ?";
 
             statement = connection.prepareStatement(sql);
             statement.setString(1, username);
             resultSet = statement.executeQuery();
+
             while (resultSet.next()) {
-                User friend = new User(
-                        resultSet.getString("username"),
-                        resultSet.getString("password")
-                );
+                String friendUsername = resultSet.getString("user_name");
+                String friendPassword = resultSet.getString("password");
+
+                User friend = new User(friendUsername, friendPassword);
                 friendList.add(friend);
             }
         } finally {
+            // Close resources in finally block to ensure they are always released
             if (resultSet != null) {
                 resultSet.close();
             }

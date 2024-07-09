@@ -48,7 +48,7 @@
                 %>
                 <h2><%= profileUser %></h2>
                 <% if (!JwtUtil.extractUsername((String) request.getSession().getAttribute("token")).equals(profileUser)) { %>
-                <form action="Profile.jsp" method="post">
+                <form action="FriendRequestServlet" method="post">
                     <button type="submit" name="friendUsername" value="<%= profileUser %>">Send Request</button>
                 </form>
                 <% } %>

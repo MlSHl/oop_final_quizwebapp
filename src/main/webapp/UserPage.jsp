@@ -1,3 +1,4 @@
+<%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +28,11 @@
         <section class="saxeli">
             <fieldset>
                 <legend><em>Main Box</em></legend>
-                <h2>Gurama</h2>
+<%
+                String token = (String) request.getSession().getAttribute("token");
+                String userName = JwtUtil.extractUsername(token);
+%>
+                <h2><%= userName %></h2>
                 <button type="button">Send Request</button>
             </fieldset>
 

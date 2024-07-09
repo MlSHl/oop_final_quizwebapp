@@ -8,11 +8,16 @@
 </head>
 <body>
 <nav>
-    <ul>
-        <li><a href="#">Quizzes</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Leaderboard</a></li>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="home-page.jsp"><img class="logo" src="image/logo.jpg"></a></li>
+        <li class="nav-li"><a href="UserPage.jsp"><i class="fas fa-user nav-icon"></i>profile</a></li>
+        <li class="nav-li"><a href="quiz_creation_page.jsp"><i class="fas fa-pencil-alt nav-icon"></i>create quiz</a></li>
     </ul>
+
+    <section class="search">
+        <input type="text" placeholder="quizzes, users ..." class="search-field">
+        <button type="button" class="search-button"><i class="fas fa-search"></i></button>
+    </section>
 </nav>
 <main>
     <header>

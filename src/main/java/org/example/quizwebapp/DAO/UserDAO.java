@@ -244,8 +244,6 @@ public class UserDAO {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
 
-        int quizzesPulled = 0;
-
         String quizSql = "SELECT quiz_id, quiz_name, quiz_desc FROM quizzes " +
                 "WHERE creator_name = ?";
         String questionSql = "SELECT question_id, question_text FROM questions WHERE quiz_id = ?";
@@ -383,7 +381,7 @@ public class UserDAO {
             quizStatement.setString(1, username);
             ResultSet quizResultSet = quizStatement.executeQuery();
 
-            while (quizResultSet.next()) {
+            while (quizResultSet.next() && quizzesPulled < numQuizzes) {
                 int quizId = quizResultSet.getInt("quiz_id");
                 String quizName = quizResultSet.getString("quiz_name");
                 String quizDesc = quizResultSet.getString("quiz_desc");
@@ -395,7 +393,7 @@ public class UserDAO {
                     questionStatement.setInt(1, quizId);
                     ResultSet questionResultSet = questionStatement.executeQuery();
 
-                    while (questionResultSet.next() && quizzesPulled < numQuizzes) {
+                    while (questionResultSet.next()) {
                         int questionId = questionResultSet.getInt("question_id");
                         String questionText = questionResultSet.getString("question_text");
 
@@ -416,10 +414,9 @@ public class UserDAO {
                                 question.addAnswer(answerText, isCorrect);
                             }
                         }
-                        numQuizzes++;
                     }
                 }
-
+                quizzesPulled++;
                 quizzes.add(quiz);
             }
         } finally {

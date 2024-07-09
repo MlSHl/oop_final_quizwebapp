@@ -11,6 +11,18 @@
     <title>Search Results</title>
 </head>
 <body>
+<nav>
+    <ul class="nav-ul">
+        <li class="nav-li"><a href="home-page.jsp"><img class="logo" src="image/logo.jpg"></a></li>
+        <li class="nav-li"><a href="UserPage.jsp"><i class="fas fa-user nav-icon"></i>Profile</a></li>
+        <li class="nav-li"><a href="quiz_creation_page.jsp"><i class="fas fa-pencil-alt nav-icon"></i>Create Quiz</a></li>
+    </ul>
+
+    <section class="search">
+        <input type="text" placeholder="Quizzes, users ..." class="search-field">
+        <button type="button" class="search-button"><i class="fas fa-search"></i></button>
+    </section>
+</nav>
 <h1>Search Results</h1>
 <%
     String s = request.getParameter("searchQuery");

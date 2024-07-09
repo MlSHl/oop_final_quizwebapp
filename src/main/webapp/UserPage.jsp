@@ -1,16 +1,15 @@
-<%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
 <%@ page import="org.example.quizwebapp.DAO.UserDAO" %>
 <%@ page import="org.example.quizwebapp.Model.Achievement" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.example.quizwebapp.CustomExceptions.UserNotFoundException" %>
-<%@ page import="java.sql.SQLException" %>
 <%@ page import="org.example.quizwebapp.Model.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="org.example.quizwebapp.Utils.JwtUtil" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <link href="CSS/UserPage.css" rel="stylesheet">
-    <title>User Registration</title>
+    <title>User Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -19,92 +18,85 @@
     <nav>
         <ul class="nav-ul">
             <li class="nav-li"><a href="home-page.jsp"><img class="logo" src="image/logo.jpg"></a></li>
-            <li class="nav-li"><a href="UserPage.jsp"><i class="fas fa-user nav-icon"></i>profile</a></li>
-            <li class="nav-li"><a href="quiz_creation_page.jsp"><i class="fas fa-pencil-alt nav-icon"></i>create quiz</a></li>
+            <li class="nav-li"><a href="UserPage.jsp"><i class="fas fa-user nav-icon"></i>Profile</a></li>
+            <li class="nav-li"><a href="quiz_creation_page.jsp"><i class="fas fa-pencil-alt nav-icon"></i>Create Quiz</a></li>
         </ul>
 
         <section class="search">
-            <input type="text" placeholder="quizzes, users ..." class="search-field">
+            <input type="text" placeholder="Quizzes, users ..." class="search-field">
             <button type="button" class="search-button"><i class="fas fa-search"></i></button>
         </section>
     </nav>
-
 
     <div class="left-column">
         <section class="saxeli">
             <fieldset>
                 <legend><em>Main Box</em></legend>
-<%
-                String token = (String) request.getSession().getAttribute("token");
-                String userName = JwtUtil.extractUsername(token);
-%>
-                <h2><%= userName %></h2>
-                <button type="button">Send Request</button>
+                <%
+                    // Extract the username from the request parameter
+                    String profileUser = request.getParameter("profileUser");
+
+                    // Ensure profileUser is not null (handle scenario where no profileUser is provided)
+                    if (profileUser == null) {
+                        throw new IllegalArgumentException("No profileUser specified.");
+                    }
+
+                    // Get user details and achievements for the specified profileUser
+                    UserDAO dao = new UserDAO();
+                    User user = dao.getUserByUsername(profileUser);
+                    List<Achievement> achievements = dao.getAchievements(profileUser);
+
+                    // Display username and profile picture
+                %>
+                <h2><%= profileUser %></h2>
+                <% if (!JwtUtil.extractUsername((String) request.getSession().getAttribute("token")).equals(profileUser)) { %>
+                <form action="Profile.jsp" method="post">
+                    <button type="submit" name="friendUsername" value="<%= profileUser %>">Send Request</button>
+                </form>
+                <% } %>
             </fieldset>
 
             <fieldset>
                 <legend><em>Achievements</em></legend>
                 <%
-                    UserDAO dao = new UserDAO();
-                    List<Achievement> achievements = null;
-                    try {
-                        achievements = dao.getAchievements(userName);
-                    } catch (UserNotFoundException | SQLException | ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
+                    // Display achievements for the specified profileUser
                     if (achievements.isEmpty()) {
                 %>
                 <p>User doesn't have any achievements.</p>
-                <%
-                } else {
-                    for (Achievement achievement : achievements) {
-                %>
-                <section class = "ach-desc">
-                    <img class = "ach-img" src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
-                    <h3 class = "ach-name"><%= achievement.getName() %></h3>
-                    <p class = "ach-txt"><%= achievement.getDescription() %></p>
-                </section>
-                <%
-                        }
-                    }
+                <% } else {
+                    for (Achievement achievement : achievements) { %>
+                <h3><%= achievement.getName() %></h3>
+                <p><%= achievement.getDescription() %></p>
+                <img src="<%= achievement.getImg() %>" alt="<%= achievement.getName() %> Image">
+                <% }
+                }
                 %>
             </fieldset>
         </section>
-
 
         <section class="friends">
             <fieldset>
                 <legend><em>Friends</em></legend>
                 <ul>
                     <%
-                        List<User> friends = null;
-                        try {
-                            friends = dao.getFriendList(userName);
-                        } catch (SQLException | ClassNotFoundException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        if (friends.isEmpty()) {
-                    %>
+                        List<User> friendsList = dao.getFriendList(profileUser);
+                        if (friendsList.isEmpty()) { %>
                     <li>User doesn't have friends</li>
-                    <%
-                    } else {
-                        for (User friend : friends) {
-                    %>
+                    <% } else {
+                        for (User friend : friendsList) { %>
                     <li>
-                        <a href="Profile.jsp?profileUser=<%= friend.getUsername() %>">
-                            <%= friend.getUsername() %>
-                        </a>
+                        <form action="UserPage.jsp" method="post">
+                            <a href="UserPage.jsp?profileUser=<%= friend.getUsername() %>">
+                                <%= friend.getUsername() %>
+                            </a>
+                        </form>
                     </li>
-                    <%
-                            }
-                        }
+                    <% }
+                    }
                     %>
                 </ul>
             </fieldset>
         </section>
-
-
     </div>
 </main>
 

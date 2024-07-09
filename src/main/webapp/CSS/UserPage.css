@@ -232,6 +232,10 @@ legend {
 .ach-img {
     width: 29px;
     height: 29px;
+    display: inline-block;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
 }
 
 .ach-desc {
@@ -239,7 +243,7 @@ legend {
     height: 50%;
 }
 
-.ach-name, .ach-txt, .ach-img {
+.ach-name, .ach-txt{
     display: inline-block;
     width: fit-content;
     margin-top: auto;

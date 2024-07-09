@@ -10,7 +10,7 @@ import java.util.List;
 
 public class QuizDAO {
 
-    public void createQuiz(User creator, Quiz quiz) throws SQLException, ClassNotFoundException {
+    public static void createQuiz(User creator, Quiz quiz) throws SQLException, ClassNotFoundException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         Connection connection = connectionPool.getConnection();
         String insertQuizSql = "INSERT INTO quiz_db.quizzes (quiz_name, quiz_desc, creator_name) VALUES (?, ?, ?)";

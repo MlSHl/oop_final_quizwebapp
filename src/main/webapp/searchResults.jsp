@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="CSS/search.css" rel="stylesheet">
     <title>Search Results</title>
 </head>
 <body>

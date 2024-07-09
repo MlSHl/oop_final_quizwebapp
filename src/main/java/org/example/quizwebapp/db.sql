@@ -100,12 +100,12 @@ VALUES ('Amateur Author', 'The User Created a Quiz.', 'image/Immortal.png');
 INSERT INTO achievement_desc (achievement_name, achievement_desc, achievement_img)
 VALUES ('Quiz Machine', 'The User Created 10 Quizzes', 'image/QuizMachine.png');
 INSERT INTO user_achievements (user_name, achievement_id)
-VALUES ('user1', 1);
+VALUES ('nina', 1);
 INSERT INTO user_achievements (user_name, achievement_id)
 VALUES ('user1', 2);
 INSERT INTO user_achievements (user_name, achievement_id)
 VALUES ('user2', 2);
 INSERT INTO friends (user_name, friend_name)
-VALUES ('user2', 'user1');
+VALUES ('barni', 'nina');
 INSERT INTO friends (user_name, friend_name)
-Values ('user1', 'user2');
+Values ('nina', 'barni');

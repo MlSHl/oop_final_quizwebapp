@@ -58,6 +58,7 @@
 
             <fieldset>
                 <legend><em>Achievements</em></legend>
+                <ul>
                 <%
                     // Display achievements for the specified profileUser
                     if (achievements.isEmpty()) {
@@ -73,6 +74,7 @@
                 <% }
                 }
                 %>
+                </ul>
             </fieldset>
         </section>
 

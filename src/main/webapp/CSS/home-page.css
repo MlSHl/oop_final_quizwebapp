@@ -160,6 +160,34 @@ a {
     background-color: white;
 }
 
+/* Base button styling */
+button {
+    background-color: white; /* White background */
+    border: 1px solid #ccc;   /* Light grey border */
+    border-radius: 8px;       /* Rounded edges */
+    color: black;             /* Text color */
+    padding: 10px 20px;       /* Padding for size */
+    font-size: 16px;          /* Font size */
+    cursor: pointer;          /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    outline: none;            /* Remove outline on focus */
+}
+
+/* Hover effect */
+button:hover {
+    background-color: red;    /* Red background on hover */
+    color: white;             /* White text on hover */
+    border-color: red;        /* Border color matches background on hover */
+}
+
+/* Optional: active state for click feedback */
+button:active {
+    background-color: darkred; /* Darker red on click */
+    border-color: darkred;     /* Darker border color on click */
+}
+
+
+
 a:hover {
     color: #ffffff;
     background-color: #1b2e3c;

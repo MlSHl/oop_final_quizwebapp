@@ -51,7 +51,7 @@
             %>
             <form action="takeQuiz.jsp" method="get">
                 <input type="hidden" name="quizId" value="<%= quizId %>">
-                <button type="submit"><%= quizName %></button>
+                <button class="grdzeli" type="submit"><%= quizName %></button>
             </form>
             <%
                 }

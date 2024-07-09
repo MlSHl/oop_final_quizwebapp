@@ -28,24 +28,44 @@
     <div class="section-1">
         <fieldset id="popular-quizzes">
             <legend><em>Popular Quizzes</em></legend>
-            <ul>
-                <li><a class="grdzeli" href="#">qvizis saxeli linkad</a></li>
-                <li><a class="grdzeli" href="#">Quiz 2</a></li>
-                <li><a class="grdzeli" href="#">Quiz 3</a></li>
-            </ul>
+
+            <%
+                QuizDAO qdpop = new QuizDAO();
+                List<Quiz> quizpoplist = null;
+                try {
+                    quizpoplist = qdpop.getPopularQuizzes(2);
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                for(Quiz q : quizpoplist) {
+                    int quizId = q.getId();
+                    String quizName = q.getTitle();
+            %>
+            <form action="takeQuiz.jsp" method="get">
+                <input type="hidden" name="quizId" value="<%= quizId %>">
+                <button class="grdzeli" type="submit"><%= quizName %></button>
+            </form>
+            <%
+                }
+            %>
+            <%--            <ul>--%>
+<%--                <li><a class="grdzeli" href="#">qvizis saxeli linkad</a></li>--%>
+<%--                <li><a class="grdzeli" href="#">Quiz 2</a></li>--%>
+<%--                <li><a class="grdzeli" href="#">Quiz 3</a></li>--%>
+<%--            </ul>--%>
         </fieldset>
 
         <fieldset id="recent-quizzes">
             <legend><em>Recently Created Quizzes</em></legend>
             <%
                 QuizDAO qd = new QuizDAO();
-                List<Quiz> quizlist = null;
+                List<Quiz> quizrecentlist = null;
                 try {
-                    quizlist = qd.getRecentQuizzes(1);
+                    quizrecentlist = qd.getRecentQuizzes(2);
                 } catch (SQLException | ClassNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-                for(Quiz q : quizlist) {
+                for(Quiz q : quizrecentlist) {
                     int quizId = q.getId();
                     String quizName = q.getTitle();
             %>

@@ -104,21 +104,34 @@ public class SubmitQuizServlet extends HttpServlet {
         }
 
         int maxPoints = quizDao.getQuizMaxPoints(quizId);
-        if(maxPoints == totalScore){
+        if(maxPoints == totalScore) {
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = connectionPool.getConnection();
 
+            String checkAchievementSql = "SELECT COUNT(*) FROM user_achievements WHERE user_name = ? AND achievement_id = ?";
             String insertAchievementSql = "INSERT INTO user_achievements (user_name, achievement_id) VALUES (?, ?)";
 
-            try (PreparedStatement statement = connection.prepareStatement(insertAchievementSql)) {
-                statement.setString(1, userName);
-                statement.setInt(2, 5);
+            try (PreparedStatement checkStatement = connection.prepareStatement(checkAchievementSql)) {
+                checkStatement.setString(1, userName);
+                checkStatement.setInt(2, 5);
+                ResultSet resultSet = checkStatement.executeQuery();
 
-                statement.executeUpdate();
+                resultSet.next();
+                int count = resultSet.getInt(1);
+
+                if (count == 0) {
+                    try (PreparedStatement insertStatement = connection.prepareStatement(insertAchievementSql)) {
+                        insertStatement.setString(1, userName);
+                        insertStatement.setInt(2, 5);
+
+                        insertStatement.executeUpdate();
+                    }
+                }
             } finally {
                 ConnectionPool.releaseConnection(connection);
             }
         }
+
     }
 
 }

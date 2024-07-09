@@ -89,6 +89,9 @@ nav {
 .search-button:hover {
     color: #E7F0F6;
 }
+.search-button, .searchQuery {
+    display: inline;
+}
 
 ul {
     list-style-type: none;

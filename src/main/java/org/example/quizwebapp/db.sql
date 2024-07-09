@@ -22,6 +22,7 @@ CREATE TABLE quizzes(
 	quiz_id		int AUTO_INCREMENT PRIMARY KEY,
     quiz_name   varchar(255),
     quiz_desc   varchar(255),
+    times_taken int DEFAULT 0,
 	creator_name 	varchar(25),
 	-- Constraints
 	FOREIGN KEY (creator_name) REFERENCES users(user_name)
